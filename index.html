@@ -177,7 +177,10 @@ a{color:inherit;text-decoration:none}
 .gb-sub{font-size:3.3cqw;font-weight:700;color:var(--brown-d)}
 .frame{position:relative;margin-inline:auto;width:70cqw;height:81cqw;border:1px solid var(--gold-line);border-radius:.6cqw;text-align:right}
 .frame .lab{position:absolute;top:12cqw;right:10.5cqw;font-size:3.2cqw;font-weight:500;color:var(--brown-d)}
-.frame .who{position:absolute;top:18cqw;right:10.5cqw;font-size:4.4cqw;font-weight:800;color:var(--brown)}
+.frame .who-in{position:absolute;top:17cqw;right:5.5cqw;left:5.5cqw;height:9.5cqw;background:transparent;border:0;border-bottom:1px solid var(--gold-line);border-radius:0;outline:none;
+  text-align:right;padding:0 5cqw;font:800 4.2cqw/1 'Tajawal',sans-serif;color:var(--brown);transition:border-color .3s}
+.frame .who-in::placeholder{color:var(--brown-l);font-weight:500;font-size:3.4cqw}
+.frame .who-in:focus{border-bottom-color:var(--brown)}
 .frame textarea{
   position:absolute;top:30cqw;left:5.5cqw;right:5.5cqw;height:27cqw;
   background:var(--field);border:0;border-radius:3cqw;resize:none;outline:none;
@@ -224,7 +227,6 @@ a{color:inherit;text-decoration:none}
 .end-names span{display:inline-block;padding:0 1cqw}
 .end-date{font-family:'Aref Ruqaa',serif;font-weight:700;font-size:2.9cqw;color:#a58d79;margin-top:1cqw;white-space:nowrap}
 .end-date .ln{display:inline-block;width:7cqw;height:.22cqw;background:currentColor;border-radius:9px;vertical-align:middle;margin:0 .8cqw;opacity:.75}
-.brand{position:absolute;right:6cqw;bottom:5cqw;font-family:'Jost',sans-serif;font-size:2.7cqw;font-weight:500;color:#8d8073;direction:ltr}
 
 /* =========================================================
    4) SCROLL REVEAL
@@ -276,15 +278,15 @@ a{color:inherit;text-decoration:none}
 /* عند الضغط: العربية تنزل وتعدّي الشاشة زي فيديو الأصل */
 .intro.playing .c-car{animation:drive 6.4s cubic-bezier(.55,.05,.45,1) forwards}
 @keyframes drive{to{transform:translateY(210%)}}
-.c-names{position:absolute;left:0;right:0;top:95cqw;display:flex;flex-direction:column;align-items:center;font-family:'Amiri',serif;font-weight:700;font-size:11.5cqw;line-height:1.15;white-space:nowrap}
-.c-names .row{display:inline-flex;align-items:baseline;gap:2cqw;padding:0 2cqw}
-.c-names .ttl{font-family:'Tajawal',sans-serif;font-weight:700;font-size:.42em;color:#a58d79}
-.c-names .amp{font-family:'Great Vibes',cursive;font-weight:400;font-size:.85em;line-height:1.25;margin:0 0 -3.4cqw;padding:0 3cqw}
-.c-date{position:absolute;left:0;right:0;text-align:center;top:135cqw;font-family:'Aref Ruqaa',serif;font-weight:700;font-size:4.6cqw;color:#a58d79}
+.c-names{position:absolute;left:0;right:0;top:101cqw;display:flex;align-items:flex-end;justify-content:center;gap:2.5cqw;white-space:nowrap}
+.c-names .who{display:flex;flex-direction:column;align-items:center}
+.c-names .ttl{font-family:'Tajawal',sans-serif;font-weight:700;font-size:3.3cqw;letter-spacing:.06em;color:#a58d79;margin-bottom:.2cqw}
+.c-names .nm{display:inline-block;font-family:'Amiri',serif;font-weight:700;font-size:12.5cqw;line-height:1.25;padding:0 1.5cqw}
+.c-names .amp{display:inline-block;font-family:'Great Vibes',cursive;font-weight:400;font-size:9.5cqw;line-height:1.2;padding:0 2cqw;margin-bottom:2.6cqw}
+.c-date{position:absolute;left:0;right:0;text-align:center;top:130cqw;font-family:'Aref Ruqaa',serif;font-weight:700;font-size:4.6cqw;color:#a58d79}
 .c-date .ln{display:inline-block;width:15cqw;height:.28cqw;background:currentColor;border-radius:9px;vertical-align:middle;margin:0 1.2cqw;opacity:.75}
-.c-names,.c-date,.c-brand{transition:opacity .9s var(--ease),filter .9s var(--ease),transform .9s var(--ease)}
-.intro.playing .c-names,.intro.playing .c-date,.intro.playing .c-brand{opacity:0;filter:blur(1.5cqw);transform:translateY(3cqw)}
-.c-brand{position:absolute;left:0;right:0;text-align:center;top:171.5cqw;font-family:'Jost',sans-serif;font-size:2.5cqw;font-weight:500;color:#9a8b7d;direction:ltr}
+.c-names,.c-date{transition:opacity .9s var(--ease),filter .9s var(--ease),transform .9s var(--ease)}
+.intro.playing .c-names,.intro.playing .c-date{opacity:0;filter:blur(1.5cqw);transform:translateY(3cqw)}
 
 .open-btn{
   position:absolute;left:50%;top:89.7%;width:30.4cqw;height:9.4cqw;transform:translate(-50%,-50%);
@@ -331,14 +333,13 @@ a{color:inherit;text-decoration:none}
     <img class="bg" src="assets/cover-bg.jpg" alt="">
     <img class="c-car" src="assets/couple-car.webp" alt="رمزي و ريم">
     <div class="dim"></div>
-    <h1 class="c-names" aria-label="د. رمزي و م. ريم">
-      <span class="row"><span class="ttl">د.</span><span class="deboss">رمزي</span></span>
+    <h1 class="c-names" aria-label="الدكتور رمزي والمهندسة ريم">
+      <span class="who"><span class="ttl">الدكتور</span><span class="nm deboss">رمزي</span></span>
       <span class="amp deboss light">&amp;</span>
-      <span class="row"><span class="ttl">م.</span><span class="deboss">ريم</span></span>
+      <span class="who"><span class="ttl">المهندسة</span><span class="nm deboss">ريم</span></span>
     </h1>
     <p class="c-date">١٣ نوفمبر<span class="ln"></span>٢٠٢٦</p>
     <button class="open-btn" id="openBtn">افتح الدعوة</button>
-    <p class="c-brand" data-brand></p>
   </div>
 </div>
 
@@ -433,8 +434,8 @@ a{color:inherit;text-decoration:none}
           <h2 class="gb-title rv mt" style="--mt:66">Guest Book</h2>
           <p class="gb-sub rv mt" style="--mt:1.5">تهنئــــــة للعروسيـــــــن</p>
           <form class="frame rv mt" id="wishForm" style="--mt:3" autocomplete="off">
-            <span class="lab">اسم الضيف</span>
-            <strong class="who" data-guest>—</strong>
+            <label class="lab" for="wishName">اسم الضيف</label>
+            <input class="who-in" id="wishName" type="text" maxlength="40" placeholder="اكتب اسمك هنا" autocomplete="name">
             <textarea id="wishText" maxlength="400" placeholder="اكتب التهنئة هنا"></textarea>
             <button class="btn-pill" type="submit" id="wishSend">إرسال التهنئة</button>
           </form>
@@ -475,7 +476,6 @@ a{color:inherit;text-decoration:none}
               <p class="end-names"><span class="deboss">رمزي و ريم</span></p>
               <p class="end-date">١٣ نوفمبر<span class="ln"></span>٢٠٢٦</p>
             </div>
-            <p class="brand" data-brand></p>
           </div>
         </div>
 
@@ -536,9 +536,6 @@ const CONFIG = {
     // { icon: 'cake',   label: 'Cake Show',   time: '11:00 PM' },
     // { icon: 'camera', label: 'التصوير',     time: '11:30 PM' },
   ],
-
-  // التوقيع أسفل الغلاف ونهاية الدعوة (اتركه '' لإخفائه)
-  brand: '@izemak_events',
 
   // مدة التسجيل الصوتي القصوى بالثواني
   maxVoiceSeconds: 60,
@@ -608,8 +605,19 @@ function sendError(err) {
 const params = new URLSearchParams(location.search);
 const GUEST_FROM_URL = (params.get('name') || params.get('guest') || '').trim().slice(0, 40);
 const GUEST = GUEST_FROM_URL || CONFIG.defaultGuest;
-$$('[data-guest]').forEach(el => el.textContent = GUEST);
-$$('[data-brand]').forEach(el => el.textContent = CONFIG.brand);
+/* اسم الضيف في سجل التهاني — من الرابط أو آخر اسم كتبه */
+const nameIn = $('#wishName');
+try { nameIn.value = GUEST_FROM_URL || localStorage.getItem('inv-guest-name') || ''; } catch { nameIn.value = GUEST_FROM_URL; }
+const guestName = () => nameIn.value.trim().slice(0, 40);
+const syncGuest = () => $$('[data-guest]').forEach(el => el.textContent = guestName() || GUEST);
+nameIn.addEventListener('input', syncGuest);
+syncGuest();
+function rememberName(n) { try { localStorage.setItem('inv-guest-name', n); } catch {} }
+function needName() {
+  nameIn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  setTimeout(() => nameIn.focus({ preventScroll: true }), 450);
+  toast('من فضلك اكتب اسمك أولاً');
+}
 
 $('#mapFrame').src = 'https://maps.google.com/maps?q=' + encodeURIComponent(CONFIG.mapQuery) + '&z=15&output=embed';
 $$('[data-map-link]').forEach(a => a.href = CONFIG.mapUrl);
@@ -734,11 +742,14 @@ $('#wishForm').addEventListener('submit', async e => {
   e.preventDefault();
   const ta = $('#wishText');
   const text = ta.value.trim();
+  const name = guestName();
+  if (!name) { needName(); return; }
   if (!text) { ta.focus(); toast('من فضلك اكتب التهنئة أولاً'); return; }
+  rememberName(name);
   wishBtn.disabled = true;
   wishBtn.textContent = 'جاري الإرسال…';
   try {
-    await api('/api/wishes', { name: GUEST, text });
+    await api('/api/wishes', { name, text });
     ta.value = '';
     ta.blur();
     openSheet();
@@ -761,6 +772,9 @@ let rec = null, chunks = [], recTimer = null, recStart = 0, sending = false;
 audioBox.addEventListener('click', async () => {
   if (sending) return;
   if (rec && rec.state === 'recording') { rec.stop(); return; }
+  const name = guestName();
+  if (!name) { needName(); return; }
+  rememberName(name);
   if (!navigator.mediaDevices?.getUserMedia || !window.MediaRecorder) {
     toast('التسجيل الصوتي غير مدعوم في هذا المتصفح'); return;
   }
@@ -785,7 +799,7 @@ audioBox.addEventListener('click', async () => {
       sending = true;
       audioSub.textContent = 'جاري إرسال التسجيل…';
       try {
-        await api('/api/wishes', { name: GUEST, audio: fr.result, duration });
+        await api('/api/wishes', { name, audio: fr.result, duration });
         openSheet();
       } catch (err) {
         sendError(err);
