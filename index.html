@@ -258,13 +258,13 @@ html.dt-wait [data-dt]{opacity:0}
 
 /* Ending — زي الأصل: العربية تحت على الشمال مقصوصة، والأسماء على اليمين */
 .ending{position:relative;height:78cqw}
-.end-car{position:absolute;left:-3cqw;top:0;width:60cqw;height:auto;filter:drop-shadow(0 2cqw 2.2cqw rgba(95,75,50,.25))}
+/* نفس ميل عربية الأصل (حوالي 10° لليسار) */
+.end-car{position:absolute;left:-7cqw;top:0;width:66cqw;height:auto;transform:rotate(-10deg);transform-origin:50% 100%;filter:drop-shadow(0 2cqw 2.2cqw rgba(95,75,50,.25))}
 .end-mark{position:absolute;right:5cqw;bottom:9cqw;width:32cqw;display:flex;flex-direction:column;align-items:center;text-align:center}
 .end-mono{width:22cqw;height:auto;margin-bottom:2.5cqw}
 .end-names{font-family:'Aref Ruqaa',serif;font-weight:700;font-size:6.6cqw;line-height:1.3;white-space:nowrap}
 .end-names span{display:inline-block;padding:0 1cqw}
 .end-date{font-family:'Aref Ruqaa',serif;font-weight:700;font-size:2.9cqw;color:#a58d79;margin-top:1cqw;white-space:nowrap}
-.end-date .ln{display:inline-block;width:7cqw;height:.22cqw;background:currentColor;border-radius:9px;vertical-align:middle;margin:0 .8cqw;opacity:.75}
 
 /* =========================================================
    4) SCROLL REVEAL
@@ -570,13 +570,13 @@ html.dt-wait [data-dt]{opacity:0}
 
         <!-- Closing -->
         <div class="sec mt" style="--mt:30">
-          <img class="img-c rv" src="assets/welcome.webp" alt="وبحضوركم يتم لنا الفرح والسرور" style="--w:58">
+          <img class="img-c rv" src="assets/welcome-rr.webp" alt="وبحضوركم تكتمل فرحتنا" style="--w:46">
           <div class="ending mt" style="--mt:20">
             <img class="end-car rv" src="assets/couple-car.webp" alt="رمزي و ريم">
             <div class="end-mark rv zoom" style="--d:.3s">
               <img class="end-mono" src="assets/monogram-rr.webp" alt="">
               <p class="end-names"><span class="deboss">رمزي و ريم</span></p>
-              <p class="end-date"><span data-dt="endDayMon">١٣ نوفمبر</span><span class="ln"></span><span data-dt="endYear">٢٠٢٦</span></p>
+              <p class="end-date"><span data-dt="endDayMon">١٣ نوفمبر</span> <span data-dt="endYear">٢٠٢٦</span></p>
             </div>
           </div>
         </div>
