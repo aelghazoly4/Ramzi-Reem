@@ -162,6 +162,33 @@ tr:last-child td{border-bottom:0}
 .link-out span{flex:1}
 .ok{color:var(--good);font-weight:700}
 
+/* Settings (موعد الحفل) */
+.set-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:16px 20px}
+.set-now{display:flex;align-items:center;gap:12px}
+.set-now i{width:40px;height:40px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:none}
+.set-now i svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.set-now b{display:block;font-size:15px;font-weight:800}
+.set-now span{font-size:13px;color:var(--ink-3)}
+.set-body{border-top:1px solid var(--line);padding:18px 20px 20px;display:grid;gap:18px}
+.set-grid{display:grid;grid-template-columns:minmax(240px,1fr) 1.4fr;gap:18px}
+.f-lab{display:block;font-size:13px;font-weight:700;color:var(--ink-2);margin-bottom:8px}
+.f-hint{font-size:12px;color:var(--ink-3);margin-top:6px}
+.preview{background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;gap:8px;font-size:13.5px}
+.preview div{display:flex;justify-content:space-between;gap:12px}
+.preview span{color:var(--ink-3);white-space:nowrap}
+.preview b{font-weight:700;text-align:left}
+.det-rows{display:grid;gap:8px}
+.det-row{display:grid;grid-template-columns:130px 1fr 130px 40px;gap:8px;align-items:center}
+.det-row select,.det-row input{height:42px;border-radius:10px;border:1px solid var(--line);background:var(--surface-2);padding:0 10px;font-size:14px;outline:none;width:100%}
+.det-row select:focus,.det-row input:focus{border-color:var(--accent)}
+.set-actions{display:flex;gap:8px;justify-content:flex-start;align-items:center;flex-wrap:wrap}
+.saved{font-size:13px;color:var(--good);font-weight:700}
+@media (max-width:700px){
+  .set-grid{grid-template-columns:1fr}
+  .det-row{grid-template-columns:1fr 1fr 40px}
+  .det-row .det-label{grid-column:1/-1;order:-1}
+}
+
 /* RSVP */
 .rsvp-top{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .rsvp-stat{background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:16px}
@@ -252,6 +279,44 @@ tr:last-child td{border-bottom:0}
       </button>
     </div>
   </header>
+
+  <!-- Settings: موعد الحفل -->
+  <section class="card" style="margin-bottom:14px" id="settingsCard">
+    <div class="set-head">
+      <div class="set-now">
+        <i><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg></i>
+        <div><b>موعد الحفل</b><span id="setNow">—</span></div>
+      </div>
+      <button class="btn btn-ghost" id="setToggle">
+        <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>تعديل الموعد
+      </button>
+    </div>
+    <div class="set-body hidden" id="setBody">
+      <div class="set-grid">
+        <div>
+          <label class="f-lab" for="setDate">تاريخ ووقت الحفل (بتوقيت الأردن)</label>
+          <input class="field" id="setDate" type="datetime-local" step="300">
+          <p class="f-hint">التاريخ والساعة بيتغيروا في كل الدعوة والعداد التنازلي أوتوماتيك.</p>
+        </div>
+        <div>
+          <span class="f-lab">هيظهر في الدعوة كده</span>
+          <div class="preview" id="setPreview"></div>
+        </div>
+      </div>
+      <div>
+        <span class="f-lab">فقرات الحفل (The Details)</span>
+        <div class="det-rows" id="detRows"></div>
+        <button class="btn btn-ghost" id="detAdd" style="margin-top:10px;height:38px">
+          <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>إضافة فقرة
+        </button>
+      </div>
+      <div class="set-actions">
+        <button class="btn btn-primary" id="setSave">حفظ التعديلات</button>
+        <button class="btn btn-ghost" id="setCancel">إلغاء</button>
+        <span class="saved" id="setSaved"></span>
+      </div>
+    </div>
+  </section>
 
   <!-- KPIs -->
   <section class="kpis" id="kpis"></section>
@@ -345,6 +410,7 @@ tr:last-child td{border-bottom:0}
 <div class="toast" id="toast"></div>
 <audio id="player" preload="none"></audio>
 
+<script src="/assets/event-date.js?v=1"></script>
 <script>
 /* ================= CONFIG ================= */
 const params = new URLSearchParams(location.search);
@@ -352,7 +418,13 @@ const EVENT_ID = (params.get('event') || 'ramzi-reem').toLowerCase();
 const API = '';                       // نفس الدومين على Vercel
 const INVITE_URL = location.origin + '/';
 const TIME_ZONE = 'Asia/Amman';
-const EVENT_DATE = new Date('2026-11-13T20:00:00+03:00');
+const DEFAULT_SETTINGS = {
+  eventDate: '2026-11-13T20:00:00+03:00',
+  details: [{ icon: 'car', label: 'الاستقبال', time: '8:00 PM' }],
+};
+const TZ_OFFSET = '+03:00';          // الأردن
+let SETTINGS = { ...DEFAULT_SETTINGS };
+let EVENT_DATE = new Date(SETTINGS.eventDate);
 
 /* ================= HELPERS ================= */
 const $ = (s, r = document) => r.querySelector(s);
@@ -402,6 +474,7 @@ $('#loginForm').addEventListener('submit', async e => {
     showDash();
     renderStats(await r.json());
     loadWishes();
+    loadSettings();
   } catch (err) {
     $('#loginErr').textContent = err.message || 'حدث خطأ';
   } finally {
@@ -461,7 +534,7 @@ function renderStats(s) {
       <div class="val num">${nf.format(val)}</div>
       <div class="hint">${esc(hint)}</div>
     </div>`).join('');
-  $('#eventSub').textContent = `الجمعة 13 نوفمبر 2026 · فندق ريجنسي بالاس، عمّان · ${days ? `باقي ${days} يوم` : 'يوم الحفل 🤍'}`;
+  $('#eventSub').textContent = `${EventDate.format(SETTINGS.eventDate).short.split(' · ')[0]} · فندق ريجنسي بالاس، عمّان · ${days ? `باقي ${days} يوم` : 'يوم الحفل 🤍'}`;
   $('#updated').textContent = 'آخر تحديث ' + new Intl.DateTimeFormat('ar', { timeStyle: 'short', timeZone: TIME_ZONE }).format(new Date());
 
   renderChart(s.daily);
@@ -750,12 +823,93 @@ $('#copyBtn').addEventListener('click', async () => {
   catch { toast('انسخ الرابط يدوياً'); }
 });
 
+/* ================= SETTINGS (موعد الحفل + الفقرات) ================= */
+const ICON_NAMES = { car: 'الاستقبال (سيارة)', dress: 'العروس (فستان)', plate: 'البوفيه (طبق)', cake: 'الكيك', camera: 'التصوير (كاميرا)' };
+const to24 = t => {                     // "8:00 PM" → "20:00"
+  const m = /^(\d{1,2}):(\d{2})\s*(AM|PM)$/i.exec(String(t).trim());
+  if (!m) return '20:00';
+  let h = +m[1] % 12; if (m[3].toUpperCase() === 'PM') h += 12;
+  return `${String(h).padStart(2, '0')}:${m[2]}`;
+};
+const to12 = v => { const [h, m] = v.split(':').map(Number); return EventDate.clock(h, m); };
+
+async function loadSettings() {
+  try {
+    const r = await fetch(`${API}/api/settings?event=${encodeURIComponent(EVENT_ID)}`);
+    const st = r.ok ? await r.json() : {};
+    SETTINGS = { eventDate: st.eventDate || DEFAULT_SETTINGS.eventDate, details: st.details?.length ? st.details : DEFAULT_SETTINGS.details };
+  } catch { SETTINGS = { ...DEFAULT_SETTINGS }; }
+  EVENT_DATE = new Date(SETTINGS.eventDate);
+  $('#setNow').textContent = EventDate.format(SETTINGS.eventDate).short;
+  if (lastStats) renderStats(lastStats);
+}
+
+function fillSettingsForm() {
+  $('#setDate').value = EventDate.format(SETTINGS.eventDate).localInput;
+  $('#detRows').innerHTML = '';
+  SETTINGS.details.forEach(addDetRow);
+  updatePreview();
+  $('#setSaved').textContent = '';
+}
+function addDetRow(d = { icon: 'car', label: '', time: '8:00 PM' }) {
+  const row = document.createElement('div');
+  row.className = 'det-row';
+  row.innerHTML = `
+    <select class="det-icon">${Object.entries(ICON_NAMES).map(([k, n]) => `<option value="${k}" ${k === d.icon ? 'selected' : ''}>${n}</option>`).join('')}</select>
+    <input class="det-label" maxlength="30" placeholder="اسم الفقرة — مثال: دخلة العروس" value="${esc(d.label)}">
+    <input class="det-time" type="time" value="${to24(d.time)}">
+    <button class="del" type="button" title="حذف الفقرة"><svg viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg></button>`;
+  row.querySelector('.del').addEventListener('click', () => row.remove());
+  $('#detRows').appendChild(row);
+}
+function updatePreview() {
+  const v = $('#setDate').value;
+  if (!v) { $('#setPreview').innerHTML = '<p class="muted">اختار التاريخ والوقت</p>'; return; }
+  const f = EventDate.format(v + ':00' + TZ_OFFSET);
+  $('#setPreview').innerHTML = [
+    ['الغلاف', f.cover], ['أول الدعوة', f.hero, 1], ['نص الدعوة', f.timeLine], ['', f.dayLine], ['Save the date', f.std, 1],
+  ].map(([k, val, ltr]) => `<div><span>${k}</span><b${ltr ? ' dir="ltr"' : ''}>${esc(val)}</b></div>`).join('');
+}
+$('#setDate').addEventListener('input', updatePreview);
+$('#detAdd').addEventListener('click', () => { if ($$('#detRows .det-row').length < 8) addDetRow(); else toast('الحد الأقصى 8 فقرات'); });
+$('#setToggle').addEventListener('click', () => {
+  const open = $('#setBody').classList.toggle('hidden') === false;
+  if (open) fillSettingsForm();
+});
+$('#setCancel').addEventListener('click', () => $('#setBody').classList.add('hidden'));
+$('#setSave').addEventListener('click', async () => {
+  const v = $('#setDate').value;
+  if (!v) { toast('اختار التاريخ والوقت'); return; }
+  const details = $$('#detRows .det-row').map(r => ({
+    icon: r.querySelector('.det-icon').value,
+    label: r.querySelector('.det-label').value.trim(),
+    time: to12(r.querySelector('.det-time').value || '20:00'),
+  }));
+  if (details.some(d => !d.label)) { toast('اكتب اسم كل فقرة أو احذفها'); return; }
+  const btn = $('#setSave');
+  btn.disabled = true;
+  try {
+    const r = await fetch(`${API}/api/admin/settings`, {
+      method: 'PUT',
+      headers: { 'content-type': 'application/json', 'x-admin-key': KEY },
+      body: JSON.stringify({ event: EVENT_ID, eventDate: v + ':00' + TZ_OFFSET, details }),
+    });
+    if (r.status === 401) { logout(); return; }
+    if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || 'error');
+    await loadSettings();
+    $('#setSaved').textContent = '✓ تم الحفظ — الدعوة اتحدّثت';
+    toast('تم حفظ الموعد');
+  } catch { toast('تعذر الحفظ، حاول مرة أخرى'); }
+  finally { btn.disabled = false; }
+});
+
 /* ================= BOOT ================= */
 $('#refreshBtn').addEventListener('click', () => { loadStats(); loadWishes(); });
 setInterval(() => { if (KEY && !document.hidden && !$('#dash').classList.contains('hidden')) { loadStats(true); loadWishes(true); } }, 30000);
 
 if (KEY) {
   showDash();
+  loadSettings();
   loadStats().then(() => loadWishes());
 }
 </script>
