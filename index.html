@@ -277,22 +277,12 @@ a{color:inherit;text-decoration:none}
   filter:drop-shadow(0 2cqw 2.2cqw rgba(95,75,50,.28));
 }
 /* مونوجرام ر ر — العربية بتعدّي من فوقه */
-.c-mono{position:absolute;left:0;right:0;margin-inline:auto;top:62cqw;width:54cqw;height:auto;
-  transition:opacity .8s var(--ease) 2s,filter .8s var(--ease) 2s}
+.c-mono{position:absolute;left:0;right:0;margin-inline:auto;top:83.5cqw;width:62cqw;height:auto;
+  transition:opacity .9s var(--ease) 2.7s,filter .9s var(--ease) 2.7s}
 .intro.playing .c-mono{opacity:0;filter:blur(1.2cqw)}
 /* عند الضغط: العربية تنزل وتعدّي الشاشة زي فيديو الأصل */
 .intro.playing .c-car{animation:drive 6.4s cubic-bezier(.55,.05,.45,1) forwards}
 @keyframes drive{to{transform:translateY(300%)}}
-.c-names{position:absolute;left:0;right:0;top:104cqw;display:flex;align-items:flex-end;justify-content:center;gap:2.5cqw;white-space:nowrap}
-.c-names .who{display:flex;flex-direction:column;align-items:center}
-.c-names .ttl{font-family:'Tajawal',sans-serif;font-weight:700;font-size:3.3cqw;letter-spacing:.06em;color:#a58d79;margin-bottom:.2cqw}
-.c-names .nm{display:inline-block;font-family:'Amiri',serif;font-weight:700;font-size:12.5cqw;line-height:1.25;padding:0 1.5cqw}
-.c-names .amp{display:inline-block;font-family:'Great Vibes',cursive;font-weight:400;font-size:9.5cqw;line-height:1.2;padding:0 2cqw;margin-bottom:2.6cqw}
-.c-date{position:absolute;left:0;right:0;text-align:center;top:133cqw;font-family:'Aref Ruqaa',serif;font-weight:700;font-size:4.6cqw;color:#a58d79}
-.c-date .ln{display:inline-block;width:15cqw;height:.28cqw;background:currentColor;border-radius:9px;vertical-align:middle;margin:0 1.2cqw;opacity:.75}
-.c-names,.c-date{transition:opacity .8s var(--ease) 2.6s,filter .8s var(--ease) 2.6s,transform .8s var(--ease) 2.6s}
-.c-date{transition-delay:3s}
-.intro.playing .c-names,.intro.playing .c-date{opacity:0;filter:blur(1.5cqw);transform:translateY(3cqw)}
 
 .open-btn{
   position:absolute;left:50%;top:89.7%;width:30.4cqw;height:9.4cqw;transform:translate(-50%,-50%);
@@ -340,12 +330,6 @@ a{color:inherit;text-decoration:none}
     <img class="c-mono" src="assets/monogram-rr.webp" alt="">
     <div class="dim"></div>
     <img class="c-car" src="assets/couple-car.webp" alt="رمزي و ريم">
-    <h1 class="c-names" aria-label="الدكتور رمزي والمهندسة ريم">
-      <span class="who"><span class="ttl">الدكتور</span><span class="nm deboss">رمزي</span></span>
-      <span class="amp deboss light">&amp;</span>
-      <span class="who"><span class="ttl">المهندسة</span><span class="nm deboss">ريم</span></span>
-    </h1>
-    <p class="c-date">١٣ نوفمبر<span class="ln"></span>٢٠٢٦</p>
     <button class="open-btn" id="openBtn">افتح الدعوة</button>
   </div>
 </div>
