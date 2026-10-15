@@ -1,0 +1,69 @@
+# Ramzi-Reem
+
+دعوة زفاف د. رمزي & م. ريم — Vercel + MongoDB
+
+## محتوى المشروع
+
+```
+index.html            الدعوة
+admin/index.html      لوحة المتابعة  →  https://<your-domain>/admin
+api/track.js          تسجيل مشاهدة الدعوة / فتحها
+api/wishes.js         استقبال التهاني (مكتوبة + صوتية)
+api/admin/stats.js    الإحصائيات (محمية بكلمة سر)
+api/admin/wishes.js   عرض / حذف التهاني (محمية)
+api/admin/audio.js    تشغيل التسجيلات الصوتية (محمية)
+api/_lib/             اتصال MongoDB + أدوات مشتركة
+assets/               الصور والموسيقى
+```
+
+## خطوات الرفع
+
+### 1) MongoDB Atlas (مجاني)
+1. ادخل https://cloud.mongodb.com واعمل Cluster مجاني (M0).
+2. **Database Access** → Add user (اسم + كلمة سر).
+3. **Network Access** → Add IP → `0.0.0.0/0` (لازم علشان Vercel مالوش IP ثابت).
+4. **Connect → Drivers** → انسخ الـ connection string وحط فيه كلمة السر.
+
+### 2) GitHub
+ارفع فولدر `wedding` كـ repo (الـ `.gitignore` جاهز ومش هيرفع `node_modules` ولا `.env`).
+
+### 3) Vercel
+1. https://vercel.com → **Add New Project** → اختار الـ repo.
+2. Framework Preset: **Other** — مفيش build command.
+3. **Environment Variables**:
+
+| الاسم | القيمة |
+|---|---|
+| `MONGODB_URI` | الـ connection string من Atlas |
+| `MONGODB_DB` | `wedding` |
+| `ADMIN_KEY` | كلمة سر لوحة التحكم (اختار كلمة قوية) |
+| `TZ_OFFSET` | `+03:00` |
+
+4. **Deploy**.
+
+## الاستخدام
+- **رابط الدعوة العام:** `https://<your-domain>/`
+- **رابط باسم الضيف:** `https://<your-domain>/?name=أم أسامة` — الاسم بيظهر في الدعوة، وبيتسجل في لوحة التحكم (مين فتح ومين لأ). تقدر تعمل الروابط دي من اللوحة نفسها (رابط ضيف مخصّص).
+- **لوحة التحكم:** `https://<your-domain>/admin` وتدخل بـ `ADMIN_KEY`.
+
+## اللوحة بتعرض إيه
+- إجمالي المشاهدات، الزوار الفريدين، عدد اللي فتحوا الدعوة (ونسبتهم)، التهاني المكتوبة والصوتية.
+- رسم للمشاهدات اليومية لآخر 14 يوم (مع جدول).
+- الأجهزة والدول.
+- كل التهاني مع بحث وفلترة وتشغيل الصوتيات وحذف وتصدير CSV.
+- الضيوف أصحاب الروابط المخصّصة: كام مرة فتحوا وهل ضغطوا "افتح الدعوة".
+- آخر النشاطات (بتتحدث تلقائياً كل 30 ثانية).
+
+## معاينة اللينك على واتساب
+- الصورة: `assets/og-image.jpg` (1200×630).
+- العنوان والوصف في أول `index.html` (`og:title` و `og:description`).
+- الروابط مضبوطة على `https://ramzi-reem.vercel.app` — لو Vercel أدّى المشروع دومين تاني، غيّره في الـ 3 سطور `og:url` و `og:image` و `og:image:secure_url`.
+- واتساب بيحفظ المعاينة: لو بعت اللينك قبل التعديل، جرّب تبعته بـ `?v=2` في آخره علشان يقرا المعاينة الجديدة.
+
+## دعوة جديدة لعميل تاني بنفس قاعدة البيانات
+غيّر `eventId` في `CONFIG` جوه `index.html` (مثلاً `ahmed-sara`)، وافتح اللوحة بـ `/admin?event=ahmed-sara`.
+
+## الحماية
+- لوحة التحكم وكل الـ endpoints بتاعتها محتاجة `ADMIN_KEY`.
+- حد أقصى 6 تهاني لكل زائر كل 10 دقايق، والتسجيل الصوتي بحد أقصى 1.5MB.
+- كل النصوص بتتعرض في اللوحة كنص عادي (مفيش HTML بيتنفّذ).

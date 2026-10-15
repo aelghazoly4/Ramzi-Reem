@@ -1,0 +1,13 @@
+{
+  "name": "wedding-invitation",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Ramzi & Reem wedding invitation + analytics API (Vercel + MongoDB)",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "mongodb": "6.10.0"
+  }
+}

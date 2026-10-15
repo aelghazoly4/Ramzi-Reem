@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>لوحة متابعة الدعوة</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%A4%8D%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Allison&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f3efe8;
+  --surface:#fbf8f3;
+  --surface-2:#f6f1e9;
+  --line:#e6ddcf;
+  --ink:#2f2924;
+  --ink-2:#6b5f55;
+  --ink-3:#9a8e83;
+  --accent:#8a6a4f;
+  --accent-soft:#efe5d8;
+  --bar:#b0702a;          /* validated: light surface #fbf8f3 */
+  --good:#3f7d58;
+  --danger:#b3412f;
+  --shadow:0 1px 2px rgba(60,45,30,.06),0 6px 20px rgba(60,45,30,.06);
+  --r:16px;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#151311;
+    --surface:#1f1c19;
+    --surface-2:#26221e;
+    --line:#38322c;
+    --ink:#f1ebe3;
+    --ink-2:#c3b7aa;
+    --ink-3:#8f8478;
+    --accent:#d2b393;
+    --accent-soft:#2e2822;
+    --bar:#c27f35;        /* validated: dark surface #1f1c19 */
+    --good:#7cc59a;
+    --danger:#e58a78;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+  }
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'Tajawal',system-ui,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+button,input{font:inherit;color:inherit}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;background:none;border:0}
+.num{font-variant-numeric:tabular-nums}
+.hidden{display:none !important}
+
+/* ---------- Login ---------- */
+.login{min-height:100vh;display:grid;place-items:center;padding:24px}
+.login-card{width:min(400px,100%);background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:36px 28px;box-shadow:var(--shadow);text-align:center}
+.login-card .mark{font-family:'Allison',cursive;font-size:56px;line-height:1;color:var(--accent);margin-bottom:6px;direction:ltr}
+.login-card h1{font-size:20px;font-weight:800;margin-bottom:6px}
+.login-card p{color:var(--ink-3);font-size:14px;margin-bottom:24px}
+.field{width:100%;height:48px;border-radius:12px;border:1px solid var(--line);background:var(--surface-2);padding:0 14px;outline:none;transition:border-color .2s,box-shadow .2s}
+.field:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 18px;border-radius:12px;font-weight:700;font-size:14px;transition:background .2s,transform .15s,opacity .2s;white-space:nowrap}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--accent);color:var(--surface)}
+.btn-ghost{background:var(--surface);border:1px solid var(--line);color:var(--ink-2)}
+.btn-ghost:hover{background:var(--surface-2)}
+.btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.login-card .btn{width:100%;height:48px;margin-top:12px}
+.err{color:var(--danger);font-size:13px;min-height:20px;margin-top:10px}
+
+/* ---------- Layout ---------- */
+.wrap{max-width:1180px;margin:0 auto;padding:24px 20px 60px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.brand-t{display:flex;align-items:center;gap:14px}
+.brand-t .mono{width:52px;height:52px;border-radius:50%;background:var(--accent-soft);display:grid;place-items:center;font-family:'Allison',cursive;font-size:24px;color:var(--accent);direction:ltr;letter-spacing:-.02em}
+.brand-t h1{font-size:22px;font-weight:800;line-height:1.2}
+.brand-t small{color:var(--ink-3);font-size:13px}
+.actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.updated{font-size:12px;color:var(--ink-3);margin-inline-end:6px}
+.spin svg{animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+.card-h{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 20px 0;flex-wrap:wrap}
+.card-h h2{font-size:16px;font-weight:800}
+.card-h .sub{font-size:12.5px;color:var(--ink-3);font-weight:500}
+.card-b{padding:16px 20px 20px}
+
+/* KPI */
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:14px}
+.kpi{padding:18px 18px 16px}
+.kpi .lab{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-2);font-weight:700}
+.kpi .lab i{width:30px;height:30px;border-radius:9px;background:var(--accent-soft);display:grid;place-items:center;color:var(--accent)}
+.kpi .lab i svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.kpi .val{font-size:34px;font-weight:800;margin-top:12px;line-height:1;letter-spacing:-.01em}
+.kpi .hint{font-size:12.5px;color:var(--ink-3);margin-top:8px}
+
+.grid-2{display:grid;grid-template-columns:1.75fr 1fr;gap:14px;margin-bottom:14px}
+.stack{display:grid;gap:14px}
+
+/* Chart */
+.seg{display:inline-flex;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:3px}
+.seg button{height:30px;padding:0 12px;border-radius:8px;font-size:12.5px;font-weight:700;color:var(--ink-3)}
+.seg button.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.chart-box{position:relative;height:260px;direction:ltr}
+.chart-box svg{width:100%;height:100%;overflow:visible}
+.chart-box .grid line{stroke:var(--line);stroke-width:1}
+.chart-box .axis text{fill:var(--ink-3);font-size:11px;font-family:'Tajawal'}
+.chart-box .bar{fill:var(--bar);transition:opacity .15s}
+.chart-box .bars.hovering .bar{opacity:.35}
+.chart-box .bars.hovering .bar.on{opacity:1}
+.chart-box .hit{fill:transparent;cursor:default}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--surface);border-radius:10px;padding:9px 12px;font-size:12.5px;line-height:1.6;white-space:nowrap;transform:translate(-50%,-100%);opacity:0;transition:opacity .12s;direction:rtl;z-index:5}
+.tip.show{opacity:1}
+.tip b{font-weight:800}
+.empty-chart{position:absolute;inset:0;display:grid;place-items:center;color:var(--ink-3);font-size:14px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:right;padding:10px 8px;border-bottom:1px solid var(--line)}
+th{color:var(--ink-3);font-weight:700;font-size:12.5px}
+tr:last-child td{border-bottom:0}
+.tbl-scroll{max-height:360px;overflow:auto}
+
+/* Breakdown bars */
+.brk{display:grid;gap:12px}
+.brk-row{display:grid;grid-template-columns:96px 1fr 38px;align-items:center;gap:10px;font-size:13.5px}
+.brk-row .nm{color:var(--ink-2);font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.brk-row .track{height:8px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.brk-row .fill{display:block;height:100%;border-radius:99px;background:var(--bar);min-width:4px}
+.brk-row .n{text-align:left;font-weight:700;color:var(--ink)}
+.muted{color:var(--ink-3);font-size:13.5px}
+
+/* Wishes */
+.tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.search{height:36px;width:200px;border-radius:10px;border:1px solid var(--line);background:var(--surface-2);padding:0 12px;font-size:13px;outline:none}
+.search:focus{border-color:var(--accent)}
+.wishes{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.wish{background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px;animation:in .35s ease both}
+@keyframes in{from{opacity:0;transform:translateY(6px)}}
+.wish-h{display:flex;align-items:center;gap:10px}
+.av{flex:none;width:38px;height:38px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:800;font-size:15px}
+.wish-h .who{flex:1;min-width:0}
+.wish-h .who b{display:block;font-size:14.5px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wish-h .who span{font-size:12px;color:var(--ink-3)}
+.del{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;color:var(--ink-3);transition:background .2s,color .2s}
+.del:hover{background:rgba(179,65,47,.1);color:var(--danger)}
+.del svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.wish p{font-size:15px;line-height:1.75;white-space:pre-wrap;word-break:break-word}
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:99px;padding:3px 9px}
+.player{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 10px;direction:ltr}
+.player .pp{flex:none;width:34px;height:34px;border-radius:50%;background:var(--accent);color:var(--surface);display:grid;place-items:center}
+.player .pp svg{width:14px;height:14px;fill:currentColor}
+.player .bar-t{flex:1;height:5px;border-radius:99px;background:var(--line);overflow:hidden;cursor:pointer}
+.player .bar-t i{display:block;height:100%;width:0;background:var(--accent);border-radius:99px}
+.player .tm{font-size:12px;color:var(--ink-3);min-width:36px;text-align:right}
+.empty{padding:40px 10px;text-align:center;color:var(--ink-3);font-size:14px;line-height:1.8}
+
+/* Guest links */
+.link-gen{display:grid;gap:10px}
+.link-row{display:flex;gap:8px}
+.link-row .field{height:42px;font-size:14px}
+.link-out{display:flex;align-items:center;gap:8px;background:var(--surface-2);border:1px dashed var(--line);border-radius:12px;padding:10px 12px;font-size:12.5px;direction:ltr;word-break:break-all;color:var(--ink-2)}
+.link-out span{flex:1}
+.ok{color:var(--good);font-weight:700}
+
+/* Activity */
+.feed{display:grid;gap:2px}
+.feed-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.feed-row:last-child{border-bottom:0}
+.dot{flex:none;width:8px;height:8px;border-radius:50%;background:var(--ink-3)}
+.dot.open{background:var(--bar)}
+.feed-row .t{margin-inline-start:auto;color:var(--ink-3);font-size:12px;white-space:nowrap}
+
+/* Modal + toast */
+.modal-back{position:fixed;inset:0;background:rgba(20,15,10,.45);display:grid;place-items:center;padding:20px;z-index:50;opacity:0;visibility:hidden;transition:.2s}
+.modal-back.show{opacity:1;visibility:visible}
+.modal{background:var(--surface);border-radius:18px;padding:24px;width:min(380px,100%);box-shadow:var(--shadow);text-align:center}
+.modal h3{font-size:17px;margin-bottom:8px}
+.modal p{color:var(--ink-2);font-size:14px;margin-bottom:20px;line-height:1.7}
+.modal .row{display:flex;gap:8px}
+.modal .row .btn{flex:1}
+.btn-danger{background:var(--danger);color:#fff}
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,20px);background:var(--ink);color:var(--surface);padding:11px 18px;border-radius:12px;font-size:14px;opacity:0;transition:.25s;z-index:60;pointer-events:none}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media (max-width:1000px){
+  .kpis{grid-template-columns:repeat(3,1fr)}
+  .grid-2{grid-template-columns:1fr}
+}
+@media (max-width:600px){
+  .wrap{padding:16px 12px 40px}
+  .kpis{grid-template-columns:repeat(2,1fr);gap:10px}
+  .kpi{padding:14px}
+  .kpi .val{font-size:28px}
+  .kpis .kpi:first-child{grid-column:1/-1}
+  .search{width:100%}
+  .tools{width:100%}
+  .chart-box{height:220px}
+  .updated{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ LOGIN ============ -->
+<section class="login" id="login">
+  <form class="login-card" id="loginForm">
+    <div class="mark">R &amp; R</div>
+    <h1>لوحة متابعة الدعوة</h1>
+    <p>ادخل كلمة السر لعرض الإحصائيات والتهاني</p>
+    <input class="field" id="keyInput" type="password" placeholder="كلمة السر" autocomplete="current-password" required>
+    <button class="btn btn-primary" type="submit" id="loginBtn">دخول</button>
+    <div class="err" id="loginErr"></div>
+  </form>
+</section>
+
+<!-- ============ DASHBOARD ============ -->
+<main class="wrap hidden" id="dash">
+  <header class="top">
+    <div class="brand-t">
+      <div class="mono">R &amp; R</div>
+      <div>
+        <h1>رمزي &amp; ريم</h1>
+        <small id="eventSub">الجمعة 13 نوفمبر 2026 · فندق ريجنسي بالاس، عمّان</small>
+      </div>
+    </div>
+    <div class="actions">
+      <span class="updated" id="updated"></span>
+      <button class="btn btn-ghost" id="refreshBtn" title="تحديث">
+        <svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>تحديث
+      </button>
+      <a class="btn btn-ghost" id="openInvite" href="/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg>الدعوة
+      </a>
+      <button class="btn btn-ghost" id="logoutBtn">
+        <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>خروج
+      </button>
+    </div>
+  </header>
+
+  <!-- KPIs -->
+  <section class="kpis" id="kpis"></section>
+
+  <!-- Chart + breakdowns -->
+  <section class="grid-2">
+    <div class="card">
+      <div class="card-h">
+        <div><h2>المشاهدات اليومية</h2><div class="sub">آخر 14 يوم · مرّر على أي يوم للتفاصيل</div></div>
+        <div class="seg" role="tablist"><button class="on" data-cv="chart">رسم</button><button data-cv="table">جدول</button></div>
+      </div>
+      <div class="card-b">
+        <div class="chart-box" id="chartBox"></div>
+        <div class="tbl-scroll hidden" id="chartTable"></div>
+      </div>
+    </div>
+    <div class="stack">
+      <div class="card"><div class="card-h"><h2>الأجهزة</h2><span class="sub">حسب الزوار</span></div><div class="card-b"><div class="brk" id="devices"></div></div></div>
+      <div class="card"><div class="card-h"><h2>الدول</h2><span class="sub">حسب الزوار</span></div><div class="card-b"><div class="brk" id="countries"></div></div></div>
+    </div>
+  </section>
+
+  <!-- Wishes -->
+  <section class="card" style="margin-bottom:14px">
+    <div class="card-h">
+      <div><h2>التهاني <span class="sub" id="wishCount"></span></h2></div>
+      <div class="tools">
+        <div class="seg" id="wishFilter"><button class="on" data-k="all">الكل</button><button data-k="text">مكتوبة</button><button data-k="voice">صوتية</button></div>
+        <input class="search" id="wishSearch" type="search" placeholder="بحث بالاسم أو النص…">
+        <button class="btn btn-ghost" id="csvBtn" style="height:36px">
+          <svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>تصدير
+        </button>
+      </div>
+    </div>
+    <div class="card-b"><div class="wishes" id="wishes"></div></div>
+  </section>
+
+  <!-- Guests + link generator + activity -->
+  <section class="grid-2">
+    <div class="card">
+      <div class="card-h"><div><h2>الضيوف</h2><div class="sub">من فتحوا روابطهم المخصّصة (?name=)</div></div></div>
+      <div class="card-b"><div class="tbl-scroll" id="guests"></div></div>
+    </div>
+    <div class="stack">
+      <div class="card">
+        <div class="card-h"><h2>رابط ضيف مخصّص</h2></div>
+        <div class="card-b link-gen">
+          <div class="link-row">
+            <input class="field" id="guestName" placeholder="اسم الضيف — مثال: أم أسامة" maxlength="40">
+            <button class="btn btn-primary" id="genBtn">إنشاء</button>
+          </div>
+          <div class="link-out hidden" id="linkOut"><span id="linkText"></span><button class="btn btn-ghost" id="copyBtn" style="height:32px;padding:0 10px">نسخ</button></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-h"><h2>آخر النشاطات</h2></div>
+        <div class="card-b"><div class="feed" id="feed"></div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="modal-back" id="confirmBack">
+  <div class="modal">
+    <h3>حذف التهنئة؟</h3>
+    <p id="confirmText">سيتم حذف التهنئة نهائياً.</p>
+    <div class="row"><button class="btn btn-ghost" id="cancelDel">إلغاء</button><button class="btn btn-danger" id="okDel">حذف</button></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<audio id="player" preload="none"></audio>
+
+<script>
+/* ================= CONFIG ================= */
+const params = new URLSearchParams(location.search);
+const EVENT_ID = (params.get('event') || 'ramzi-reem').toLowerCase();
+const API = '';                       // نفس الدومين على Vercel
+const INVITE_URL = location.origin + '/';
+const TIME_ZONE = 'Asia/Amman';
+const EVENT_DATE = new Date('2026-11-13T20:00:00+03:00');
+
+/* ================= HELPERS ================= */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+const nf = new Intl.NumberFormat('en-US');
+const dtf = new Intl.DateTimeFormat('ar', { dateStyle: 'medium', timeStyle: 'short', timeZone: TIME_ZONE });
+const rtf = new Intl.RelativeTimeFormat('ar', { numeric: 'auto' });
+let regionNames; try { regionNames = new Intl.DisplayNames(['ar'], { type: 'region' }); } catch {}
+
+function ago(d) {
+  const s = (new Date(d) - Date.now()) / 1000;
+  const a = Math.abs(s);
+  if (a < 60) return 'الآن';
+  if (a < 3600) return rtf.format(Math.round(s / 60), 'minute');
+  if (a < 86400) return rtf.format(Math.round(s / 3600), 'hour');
+  if (a < 86400 * 7) return rtf.format(Math.round(s / 86400), 'day');
+  return dtf.format(new Date(d));
+}
+function toast(m) { const t = $('#toast'); t.textContent = m; t.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('show'), 2400); }
+const flag = cc => cc && /^[A-Z]{2}$/.test(cc) ? String.fromCodePoint(...[...cc].map(c => 0x1F1A5 + c.charCodeAt(0))) : '🌐';
+const country = cc => { try { return regionNames?.of(cc) || cc; } catch { return cc; } };
+const DEVICE = { mobile: 'موبايل', desktop: 'كمبيوتر', tablet: 'تابلت', unknown: 'غير معروف' };
+const fmtDur = s => { s = Math.max(0, Math.round(s || 0)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; };
+
+/* ================= AUTH ================= */
+let KEY = '';
+try { KEY = localStorage.getItem('inv-admin-key') || ''; } catch {}
+
+async function apiGet(path) {
+  const r = await fetch(API + path, { headers: { 'x-admin-key': KEY } });
+  if (r.status === 401) { logout(); throw new Error('401'); }
+  if (!r.ok) throw new Error(String(r.status));
+  return r;
+}
+
+$('#loginForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  KEY = $('#keyInput').value.trim();
+  $('#loginErr').textContent = '';
+  $('#loginBtn').disabled = true;
+  try {
+    const r = await fetch(`${API}/api/admin/stats?event=${encodeURIComponent(EVENT_ID)}`, { headers: { 'x-admin-key': KEY } });
+    if (r.status === 401) throw new Error('كلمة السر غير صحيحة');
+    if (!r.ok) throw new Error('تعذر الاتصال بالسيرفر');
+    try { localStorage.setItem('inv-admin-key', KEY); } catch {}
+    showDash();
+    renderStats(await r.json());
+    loadWishes();
+  } catch (err) {
+    $('#loginErr').textContent = err.message || 'حدث خطأ';
+  } finally {
+    $('#loginBtn').disabled = false;
+  }
+});
+
+function logout() {
+  KEY = '';
+  try { localStorage.removeItem('inv-admin-key'); } catch {}
+  $('#dash').classList.add('hidden');
+  $('#login').classList.remove('hidden');
+  $('#keyInput').value = '';
+}
+$('#logoutBtn').addEventListener('click', logout);
+
+function showDash() {
+  $('#login').classList.add('hidden');
+  $('#dash').classList.remove('hidden');
+}
+
+/* ================= STATS ================= */
+let lastStats = null;
+async function loadStats(silent) {
+  const btn = $('#refreshBtn');
+  if (!silent) btn.classList.add('spin');
+  try {
+    const r = await apiGet(`/api/admin/stats?event=${encodeURIComponent(EVENT_ID)}`);
+    renderStats(await r.json());
+  } catch (e) { if (e.message !== '401' && !silent) toast('تعذر تحميل الإحصائيات'); }
+  finally { btn.classList.remove('spin'); }
+}
+
+const ICON = {
+  eye: '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+  user: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>',
+  mail: '<path d="M3 7l9 6 9-6"/><rect x="3" y="5" width="18" height="14" rx="2"/>',
+  msg: '<path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12z"/>',
+  mic: '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/>',
+};
+
+function renderStats(s) {
+  lastStats = s;
+  const t = s.totals;
+  const rate = t.visitors ? Math.round((t.openers / t.visitors) * 100) : 0;
+  const days = Math.max(0, Math.ceil((EVENT_DATE - Date.now()) / 864e5));
+  const kpis = [
+    ['eye',  'إجمالي المشاهدات', t.views, `خلال كل الفترة`],
+    ['user', 'زوار فريدين', t.visitors, `جهاز مختلف فتح الرابط`],
+    ['mail', 'فتحوا الدعوة', t.openers, `${rate}% من الزوار ضغطوا "افتح الدعوة"`],
+    ['msg',  'تهاني مكتوبة', t.textWishes, `من سجل الضيوف`],
+    ['mic',  'تهاني صوتية', t.voiceWishes, `تسجيلات صوتية`],
+  ];
+  $('#kpis').innerHTML = kpis.map(([ic, lab, val, hint]) => `
+    <div class="card kpi">
+      <div class="lab"><i><svg viewBox="0 0 24 24">${ICON[ic]}</svg></i>${lab}</div>
+      <div class="val num">${nf.format(val)}</div>
+      <div class="hint">${esc(hint)}</div>
+    </div>`).join('');
+  $('#eventSub').textContent = `الجمعة 13 نوفمبر 2026 · فندق ريجنسي بالاس، عمّان · ${days ? `باقي ${days} يوم` : 'يوم الحفل 🤍'}`;
+  $('#updated').textContent = 'آخر تحديث ' + new Intl.DateTimeFormat('ar', { timeStyle: 'short', timeZone: TIME_ZONE }).format(new Date());
+
+  renderChart(s.daily);
+  renderBreakdown('#devices', s.devices.map(d => ({ name: DEVICE[d.key] || d.key, n: d.n })));
+  renderBreakdown('#countries', s.countries.map(c => ({ name: `${flag(c.key)} ${country(c.key)}`, n: c.n })));
+  renderGuests(s.guests);
+  renderFeed(s.recent);
+}
+
+function renderBreakdown(sel, rows) {
+  const el = $(sel);
+  if (!rows.length) { el.innerHTML = '<p class="muted">لا توجد بيانات بعد</p>'; return; }
+  const max = Math.max(...rows.map(r => r.n));
+  el.innerHTML = rows.map(r => `
+    <div class="brk-row"><span class="nm" title="${esc(r.name)}">${esc(r.name)}</span>
+      <span class="track"><span class="fill" style="width:${(r.n / max) * 100}%"></span></span>
+      <span class="n num">${nf.format(r.n)}</span></div>`).join('');
+}
+
+/* ---------- Bar chart (single series, SVG) ---------- */
+function renderChart(daily) {
+  const box = $('#chartBox');
+  const W = box.clientWidth || 600, H = box.clientHeight || 260;
+  const m = { t: 12, r: 8, b: 26, l: 34 };
+  const iw = W - m.l - m.r, ih = H - m.t - m.b;
+  const max = Math.max(4, ...daily.map(d => d.views));
+  const step = niceStep(max / 4);
+  const top = Math.ceil(max / step) * step;
+  const y = v => m.t + ih - (v / top) * ih;
+  const bw = iw / daily.length;
+  const barW = Math.max(6, Math.min(28, bw - 6));
+  const short = d => { const [, mo, da] = d.split('-'); return `${+da}/${+mo}`; };
+
+  let g = '<g class="grid">';
+  for (let v = 0; v <= top; v += step) g += `<line x1="${m.l}" x2="${W - m.r}" y1="${y(v)}" y2="${y(v)}"/>`;
+  g += '</g><g class="axis">';
+  for (let v = 0; v <= top; v += step) g += `<text x="${m.l - 8}" y="${y(v) + 4}" text-anchor="end">${v}</text>`;
+  daily.forEach((d, i) => {
+    if (daily.length > 8 && (daily.length - 1 - i) % 2) return;   // يوم ويوم، والنهارده دايماً ظاهر
+    g += `<text x="${m.l + bw * i + bw / 2}" y="${H - 6}" text-anchor="middle">${short(d.date)}</text>`;
+  });
+  g += '</g><g class="bars">';
+  daily.forEach((d, i) => {
+    const x = m.l + bw * i + (bw - barW) / 2;
+    const h = Math.max(0, y(0) - y(d.views));
+    if (h > 0) {
+      const r = Math.min(4, h, barW / 2);
+      // rounded data-end (top), square baseline
+      g += `<path class="bar" data-i="${i}" d="M${x},${y(0)} V${y(0) - h + r} Q${x},${y(0) - h} ${x + r},${y(0) - h} H${x + barW - r} Q${x + barW},${y(0) - h} ${x + barW},${y(0) - h + r} V${y(0)} Z"/>`;
+    }
+  });
+  g += '</g><g>';
+  daily.forEach((d, i) => g += `<rect class="hit" data-i="${i}" x="${m.l + bw * i}" y="${m.t}" width="${bw}" height="${ih}"/>`);
+  g += '</g>';
+
+  const total = daily.reduce((a, d) => a + d.views, 0);
+  box.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="المشاهدات اليومية">${g}</svg><div class="tip" id="tip"></div>` +
+    (total ? '' : '<div class="empty-chart">لا توجد مشاهدات في آخر 14 يوم</div>');
+
+  const tip = $('#tip'), bars = box.querySelector('.bars');
+  box.querySelectorAll('.hit').forEach(hit => {
+    hit.addEventListener('mouseenter', () => {
+      const i = +hit.dataset.i, d = daily[i];
+      bars.classList.add('hovering');
+      bars.querySelectorAll('.bar').forEach(b => b.classList.toggle('on', +b.dataset.i === i));
+      const date = new Intl.DateTimeFormat('ar', { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC' }).format(new Date(d.date + 'T12:00:00Z'));
+      tip.innerHTML = `${date}<br>المشاهدات: <b class="num">${d.views}</b><br>الزوار: <b class="num">${d.visitors}</b> · فتحوا الدعوة: <b class="num">${d.opens}</b>`;
+      const cx = (m.l + bw * i + bw / 2) / W * box.clientWidth;
+      const cy = Math.min(y(d.views), y(0) - 4) / H * box.clientHeight - 10;
+      tip.style.left = Math.max(80, Math.min(box.clientWidth - 80, cx)) + 'px';
+      tip.style.top = cy + 'px';
+      tip.classList.add('show');
+    });
+    hit.addEventListener('mouseleave', () => { tip.classList.remove('show'); bars.classList.remove('hovering'); });
+  });
+
+  $('#chartTable').innerHTML = `<table><thead><tr><th>اليوم</th><th>المشاهدات</th><th>الزوار</th><th>فتحوا الدعوة</th></tr></thead><tbody>${
+    [...daily].reverse().map(d => `<tr><td>${short(d.date)}</td><td class="num">${d.views}</td><td class="num">${d.visitors}</td><td class="num">${d.opens}</td></tr>`).join('')}</tbody></table>`;
+}
+function niceStep(raw) {
+  const p = Math.pow(10, Math.floor(Math.log10(Math.max(raw, 1))));
+  const n = raw / p;
+  return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 5 ? 5 : 10) * p;
+}
+$$('[data-cv]').forEach(b => b.addEventListener('click', () => {
+  $$('[data-cv]').forEach(x => x.classList.toggle('on', x === b));
+  const table = b.dataset.cv === 'table';
+  $('#chartBox').classList.toggle('hidden', table);
+  $('#chartTable').classList.toggle('hidden', !table);
+}));
+let rz; window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => lastStats && renderChart(lastStats.daily), 150); });
+
+function renderGuests(list) {
+  const el = $('#guests');
+  if (!list.length) { el.innerHTML = '<p class="empty">لم يفتح أي ضيف رابطاً مخصّصاً بعد.<br>أنشئ رابطاً لكل ضيف من القائمة المجاورة.</p>'; return; }
+  el.innerHTML = `<table><thead><tr><th>الضيف</th><th>الزيارات</th><th>فتح الدعوة</th><th>آخر زيارة</th></tr></thead><tbody>${
+    list.map(g => `<tr><td><b>${esc(g.name)}</b></td><td class="num">${g.views}</td><td>${g.opens ? '<span class="ok">✓ نعم</span>' : '<span class="muted">—</span>'}</td><td class="muted">${ago(g.lastSeen)}</td></tr>`).join('')}</tbody></table>`;
+}
+
+function renderFeed(list) {
+  const el = $('#feed');
+  if (!list.length) { el.innerHTML = '<p class="muted">لا يوجد نشاط بعد</p>'; return; }
+  el.innerHTML = list.map(e => `
+    <div class="feed-row"><span class="dot ${e.type === 'open' ? 'open' : ''}"></span>
+      <span><b>${esc(e.guest || 'زائر')}</b> ${e.type === 'open' ? 'فتح الدعوة' : 'شاهد الرابط'}
+      <span class="muted"> · ${DEVICE[e.device] || ''}${e.country ? ' · ' + flag(e.country) : ''}</span></span>
+      <span class="t">${ago(e.createdAt)}</span></div>`).join('');
+}
+
+/* ================= WISHES ================= */
+let WISHES = [], filterK = 'all', query = '';
+async function loadWishes(silent) {
+  try {
+    const r = await apiGet(`/api/admin/wishes?event=${encodeURIComponent(EVENT_ID)}`);
+    const fresh = (await r.json()).wishes;
+    if (silent && current) return;           // متقطعش تسجيل شغال
+    WISHES = fresh;
+    renderWishes();
+  } catch (e) { if (e.message !== '401' && !silent) toast('تعذر تحميل التهاني'); }
+}
+function renderWishes() {
+  const q = query.trim().toLowerCase();
+  const list = WISHES.filter(w => (filterK === 'all' || w.kind === filterK) && (!q || (w.name + ' ' + (w.text || '')).toLowerCase().includes(q)));
+  $('#wishCount').textContent = `(${nf.format(WISHES.length)})`;
+  const el = $('#wishes');
+  if (!list.length) {
+    el.innerHTML = `<p class="empty" style="grid-column:1/-1">${WISHES.length ? 'لا توجد نتائج مطابقة' : 'لا توجد تهاني بعد 🤍<br>ستظهر هنا فور إرسالها من الدعوة'}</p>`;
+    return;
+  }
+  el.innerHTML = list.map((w, i) => `
+    <article class="wish" style="animation-delay:${Math.min(i, 10) * 30}ms">
+      <div class="wish-h">
+        <span class="av">${esc((w.name || '؟').trim()[0])}</span>
+        <div class="who"><b>${esc(w.name)}</b><span>${ago(w.createdAt)}${w.country ? ' · ' + flag(w.country) : ''}</span></div>
+        ${w.kind === 'voice' ? '<span class="tag">🎙 صوتية</span>' : ''}
+        <button class="del" data-del="${w.id}" title="حذف"><svg viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg></button>
+      </div>
+      ${w.kind === 'voice'
+        ? `<div class="player" data-audio="${w.audioId}"><button class="pp" aria-label="تشغيل"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></button><span class="bar-t"><i></i></span><span class="tm num">${fmtDur(w.duration)}</span></div>`
+        : `<p>${esc(w.text)}</p>`}
+    </article>`).join('');
+}
+$('#wishFilter').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  filterK = b.dataset.k;
+  $$('#wishFilter button').forEach(x => x.classList.toggle('on', x === b));
+  renderWishes();
+});
+$('#wishSearch').addEventListener('input', e => { query = e.target.value; renderWishes(); });
+
+/* ---------- Voice player ---------- */
+const player = $('#player');
+let current = null;           // { el, url }
+const audioCache = new Map();
+const PLAY = '<svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg>';
+const PAUSE = '<svg viewBox="0 0 24 24"><path d="M7 4h4v16H7zM13 4h4v16h-4z"/></svg>';
+
+$('#wishes').addEventListener('click', async e => {
+  const del = e.target.closest('[data-del]');
+  if (del) return askDelete(del.dataset.del);
+  const pp = e.target.closest('.pp');
+  const barT = e.target.closest('.bar-t');
+  const box = e.target.closest('.player');
+  if (!box) return;
+  if (barT && current?.el === box && player.duration) {
+    const r = barT.getBoundingClientRect();
+    player.currentTime = ((e.clientX - r.left) / r.width) * player.duration;
+    return;
+  }
+  if (!pp) return;
+  if (current?.el === box) { player.paused ? player.play() : player.pause(); return; }
+  stopCurrent();
+  const id = box.dataset.audio;
+  pp.innerHTML = '…';
+  try {
+    let url = audioCache.get(id);
+    if (!url) {
+      const r = await apiGet(`/api/admin/audio?id=${encodeURIComponent(id)}`);
+      url = URL.createObjectURL(await r.blob());
+      audioCache.set(id, url);
+    }
+    current = { el: box };
+    player.src = url;
+    await player.play();
+  } catch { toast('تعذر تشغيل التسجيل'); pp.innerHTML = PLAY; current = null; }
+});
+function stopCurrent() {
+  if (!current) return;
+  player.pause();
+  current.el.querySelector('.pp').innerHTML = PLAY;
+  current.el.querySelector('.bar-t i').style.width = '0';
+  current = null;
+}
+player.addEventListener('play', () => current && (current.el.querySelector('.pp').innerHTML = PAUSE));
+player.addEventListener('pause', () => current && (current.el.querySelector('.pp').innerHTML = PLAY));
+player.addEventListener('ended', stopCurrent);
+player.addEventListener('timeupdate', () => {
+  if (!current || !isFinite(player.duration)) return;
+  current.el.querySelector('.bar-t i').style.width = (player.currentTime / player.duration) * 100 + '%';
+  current.el.querySelector('.tm').textContent = fmtDur(player.currentTime);
+});
+
+/* ---------- Delete ---------- */
+let pendingDel = null;
+function askDelete(id) {
+  const w = WISHES.find(x => x.id === id);
+  pendingDel = id;
+  $('#confirmText').textContent = `سيتم حذف تهنئة «${w?.name || ''}» نهائياً.`;
+  $('#confirmBack').classList.add('show');
+}
+$('#cancelDel').addEventListener('click', () => $('#confirmBack').classList.remove('show'));
+$('#confirmBack').addEventListener('click', e => { if (e.target.id === 'confirmBack') $('#confirmBack').classList.remove('show'); });
+$('#okDel').addEventListener('click', async () => {
+  const id = pendingDel;
+  $('#confirmBack').classList.remove('show');
+  try {
+    const r = await fetch(`${API}/api/admin/wishes?id=${encodeURIComponent(id)}`, { method: 'DELETE', headers: { 'x-admin-key': KEY } });
+    if (!r.ok) throw 0;
+    WISHES = WISHES.filter(w => w.id !== id);
+    renderWishes();
+    toast('تم حذف التهنئة');
+    loadStats(true);
+  } catch { toast('تعذر الحذف'); }
+});
+
+/* ---------- CSV ---------- */
+$('#csvBtn').addEventListener('click', () => {
+  const rows = [['الاسم', 'النوع', 'التهنئة', 'المدة (ث)', 'الدولة', 'الجهاز', 'التاريخ']]
+    .concat(WISHES.map(w => [w.name, w.kind === 'voice' ? 'صوتية' : 'مكتوبة', w.text || '', w.duration || '', w.country || '', DEVICE[w.device] || '', dtf.format(new Date(w.createdAt))]));
+  const csv = '﻿' + rows.map(r => r.map(v => `"${String(v).replace(/"/g, '""')}"`).join(',')).join('\r\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+  a.download = `wishes-${EVENT_ID}.csv`;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+});
+
+/* ---------- Guest link generator ---------- */
+$('#genBtn').addEventListener('click', () => {
+  const name = $('#guestName').value.trim();
+  if (!name) { $('#guestName').focus(); return; }
+  $('#linkText').textContent = INVITE_URL + '?name=' + encodeURIComponent(name);
+  $('#linkOut').classList.remove('hidden');
+});
+$('#guestName').addEventListener('keydown', e => { if (e.key === 'Enter') $('#genBtn').click(); });
+$('#copyBtn').addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText($('#linkText').textContent); toast('تم نسخ الرابط'); }
+  catch { toast('انسخ الرابط يدوياً'); }
+});
+
+/* ================= BOOT ================= */
+$('#refreshBtn').addEventListener('click', () => { loadStats(); loadWishes(); });
+setInterval(() => { if (KEY && !document.hidden && !$('#dash').classList.contains('hidden')) { loadStats(true); loadWishes(true); } }, 30000);
+
+if (KEY) {
+  showDash();
+  loadStats().then(() => loadWishes());
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0e0e10">
+<title>دعوة زفاف د. رمزي &amp; م. ريم 🤍</title>
+<meta name="description" content="يسعدنا حضوركم حفل زفافنا · الجمعة 13 نوفمبر 2026 · قاعة العلالي – فندق ريجنسي بالاس، عمّان">
+
+<!-- معاينة اللينك على واتساب / فيسبوك / تليجرام
+     ⚠️ لو دومين Vercel طلع غير ramzi-reem.vercel.app غيّره في الـ 3 سطور اللي فيهم https:// تحت -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ramzi &amp; Reem">
+<meta property="og:locale" content="ar_AR">
+<meta property="og:url" content="https://ramzi-reem.vercel.app/">
+<meta property="og:title" content="دعوة زفاف د. رمزي &amp; م. ريم 🤍">
+<meta property="og:description" content="يسعدنا حضوركم حفل زفافنا · الجمعة 13 نوفمبر 2026 · قاعة العلالي – فندق ريجنسي بالاس، عمّان">
+<meta property="og:image" content="https://ramzi-reem.vercel.app/assets/og-image.jpg">
+<meta property="og:image:secure_url" content="https://ramzi-reem.vercel.app/assets/og-image.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ramzi &amp; Reem — 13.11.2026">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%A4%8D%3C/text%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Allison&family=Great+Vibes&family=Cormorant+Garamond:wght@500;600&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="preload" as="image" href="assets/cover-bg.jpg">
+<link rel="preload" as="image" href="assets/couple-car.webp">
+<link rel="preload" as="image" href="assets/hero.jpg">
+
+<style>
+/* =========================================================
+   1) THEME — غيّر الألوان من هنا
+   ========================================================= */
+:root{
+  --paper:#eeeeec;
+  --brown:#a1876f;
+  --brown-d:#86705d;
+  --brown-l:#b3a495;
+  --ink:#6f5f52;
+  --gold-line:#dcc7aa;
+  --field:#b2ad9b;
+  --night:#0e0e10;
+  --ease:cubic-bezier(.2,.7,.25,1);
+  --app-w:min(100vw, 480px);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--night);
+  font-family:'Tajawal',system-ui,sans-serif;
+  color:var(--brown-d);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:transparent;
+}
+body.locked{overflow:hidden;height:100dvh}
+img{display:block;max-width:none;user-select:none;-webkit-user-drag:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+
+/* ---------- Debossed (محفور في الورق) text ---------- */
+.deboss{
+  background:linear-gradient(180deg,#8c7260 0%,#a88f7a 55%,#c4b09c 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 .22cqw 0 rgba(255,255,255,.95)) drop-shadow(0 -.12cqw .1cqw rgba(70,50,35,.38));
+}
+.deboss.light{
+  background:linear-gradient(180deg,#cfc6bb 0%,#ddd6cd 100%);
+  -webkit-background-clip:text;background-clip:text;
+  filter:drop-shadow(0 .25cqw 0 rgba(255,255,255,1)) drop-shadow(0 -.15cqw .12cqw rgba(70,50,35,.4));
+}
+
+/* =========================================================
+   2) APP SHELL
+   ========================================================= */
+.app{
+  position:relative;width:var(--app-w);margin-inline:auto;min-height:100dvh;
+  container-type:inline-size;opacity:0;transition:opacity .9s var(--ease);
+}
+.app.ready{opacity:1}
+
+/* =========================================================
+   3) INVITATION PAGE — كل المقاسات بوحدة cqw (نسبة من عرض الدعوة)
+   ========================================================= */
+.page{
+  position:relative;width:100%;overflow:hidden;
+  background:var(--paper) url(assets/paper.jpg) 0 0/100% auto repeat-y;
+  container-type:inline-size;
+}
+
+/* ---------- HERO (الصفحة الثانية) ---------- */
+.hero{position:relative;width:100%;aspect-ratio:1080/2600}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%}
+.h{position:absolute;left:0;right:0;text-align:center;top:calc(var(--t)*1cqw);line-height:1;direction:ltr}
+.h-of{font-family:'Jost',sans-serif;font-weight:500;font-size:2.15cqw;letter-spacing:.16em;color:#a39486}
+.h-name{font-family:'Allison',cursive;font-size:20cqw;line-height:1.05}
+.h-amp{font-family:'Great Vibes',cursive;font-size:17cqw}
+.h-save{font-family:'Jost',sans-serif;font-weight:500;font-size:2.55cqw;letter-spacing:.1em;color:#a39486}
+.h-date{font-family:'Jost',sans-serif;font-weight:400;font-size:3.55cqw;letter-spacing:.22em;color:#9a8a7b}
+
+/* hero entrance (بعد فتح الدعوة) — الأسماء تنكتب من الشمال لليمين */
+.hero .h{opacity:0;filter:blur(1cqw);translate:0 2cqw;transition:opacity 1.2s var(--ease),filter 1.2s var(--ease),translate 1.2s var(--ease);transition-delay:var(--d,0s)}
+.hero .h.write{opacity:1;filter:none;translate:0 0;clip-path:inset(-30% 100% -30% 0);transition:clip-path 1.7s cubic-bezier(.45,.1,.3,1);transition-delay:var(--d,0s)}
+.hero.go .h{opacity:1;filter:none;translate:0 0}
+.hero.go .h.write{clip-path:inset(-30% -10% -30% -10%)}
+.h > span{display:inline-block;padding:0 2cqw}
+
+/* ---------- FLOW SECTIONS ---------- */
+.flow{position:relative;margin-top:-74.7cqw;text-align:center}
+.sec{position:relative;display:flow-root}
+.mt{margin-top:calc(var(--mt,0)*1cqw)}
+.deco{position:absolute;pointer-events:none;top:calc(var(--t)*1cqw);width:calc(var(--w)*1cqw);z-index:0}
+.sec > *:not(.deco){position:relative;z-index:1}
+.img-c{margin-inline:auto;width:calc(var(--w)*1cqw);height:auto}
+
+.txt{font-size:3.45cqw;line-height:1.9;font-weight:500;color:var(--brown-d)}
+.txt.sm{font-size:2.9cqw}
+.txt.b{font-weight:800}
+.kashida{letter-spacing:.02em}
+
+/* Basmala + Ayah */
+.basmala{font-family:'Amiri',serif;font-size:6.4cqw;line-height:1.25;color:var(--brown)}
+.ayah{font-family:'Amiri',serif;font-size:4.3cqw;line-height:2.05;color:var(--ink);width:82cqw;margin-inline:auto}
+.ayah .br{color:var(--brown);font-size:1.1em}
+
+
+.parents{font-size:3.9cqw;font-weight:800;line-height:1.85;color:var(--ink)}
+
+/* Arabic names calligraphy */
+.ar-names{display:flex;align-items:flex-end;justify-content:center;gap:3.5cqw;white-space:nowrap}
+.ar-names .who{display:flex;flex-direction:column;align-items:center}
+.ar-names .ttl{font-size:3.7cqw;font-weight:800;color:var(--brown);letter-spacing:.02em;margin-bottom:-.5cqw}
+.ar-names .nm{display:inline-block;font-family:'Aref Ruqaa',serif;font-weight:700;font-size:14.5cqw;line-height:1.35;padding:0 1cqw}
+.ar-names .amp{display:inline-block;font-family:'Great Vibes',cursive;font-weight:400;font-size:10cqw;line-height:1;padding:0 1cqw;margin-bottom:5cqw}
+
+.venue{font-size:3.9cqw;font-weight:800;color:var(--brown-d)}
+
+/* RSVP / apologies */
+.rsvp h4{font-size:3.6cqw;font-weight:800;color:var(--brown-d);margin-bottom:1.5cqw}
+.rsvp-row{font-size:3.45cqw;font-weight:500;line-height:1.9;color:var(--brown-d)}
+.rsvp-row .num{direction:ltr;unicode-bidi:isolate;display:inline-block}
+
+.kids{font-size:3.2cqw;font-weight:800;color:var(--brown)}
+
+/* Save the date */
+.serif-date{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:9.2cqw;line-height:1;color:var(--brown);direction:ltr;letter-spacing:.01em;font-variant-numeric:lining-nums}
+.car-lane{position:relative;height:9cqw}
+.car{position:absolute;top:0;left:0;width:24cqw;will-change:transform;transform:translate3d(calc(var(--x,10)*1cqw),0,0)}
+
+/* Hall name (فوق الخريطة) */
+.hall-ar{font-size:3.8cqw;font-weight:800;color:var(--brown-d);line-height:1.3}
+.hall-en{font-family:'Jost',sans-serif;font-weight:500;font-size:2.4cqw;letter-spacing:.24em;text-transform:uppercase;color:var(--brown-l);direction:ltr}
+
+/* Map */
+.map{
+  position:relative;display:block;margin-inline:auto;width:74cqw;height:34cqw;
+  border-radius:2cqw;overflow:hidden;background:#e4e4e2;box-shadow:0 1.2cqw 4cqw rgba(110,90,70,.14);
+}
+.map iframe{width:100%;height:100%;border:0;pointer-events:none;filter:saturate(.75) contrast(.95)}
+.map::after{content:"";position:absolute;inset:0}
+
+/* Details */
+.d-item{display:flex;flex-direction:column;align-items:center}
+.d-item img{height:auto;margin-bottom:2.6cqw}
+.d-item .lbl{font-size:3.4cqw;font-weight:700;color:var(--brown-d);line-height:1.3}
+.d-item .time{font-size:3.5cqw;font-weight:800;color:var(--brown-d);direction:ltr;margin-top:.6cqw;letter-spacing:.02em}
+
+/* Guest book */
+.gb-title{font-family:'Great Vibes',cursive;font-size:13.5cqw;line-height:1;color:var(--brown);direction:ltr;font-weight:400;
+  text-shadow:0 .25cqw .25cqw rgba(255,255,255,.7),0 -.15cqw .2cqw rgba(90,70,50,.18)}
+.gb-sub{font-size:3.3cqw;font-weight:700;color:var(--brown-d)}
+.frame{position:relative;margin-inline:auto;width:70cqw;height:81cqw;border:1px solid var(--gold-line);border-radius:.6cqw;text-align:right}
+.frame .lab{position:absolute;top:12cqw;right:10.5cqw;font-size:3.2cqw;font-weight:500;color:var(--brown-d)}
+.frame .who{position:absolute;top:18cqw;right:10.5cqw;font-size:4.4cqw;font-weight:800;color:var(--brown)}
+.frame textarea{
+  position:absolute;top:30cqw;left:5.5cqw;right:5.5cqw;height:27cqw;
+  background:var(--field);border:0;border-radius:3cqw;resize:none;outline:none;
+  padding:3cqw 3.6cqw;font:500 3.3cqw/1.6 'Tajawal';color:#3f3a32;
+  box-shadow:inset 0 .4cqw 1.2cqw rgba(60,50,35,.18),0 .6cqw 1.6cqw rgba(90,75,55,.15);transition:box-shadow .3s;
+}
+.frame textarea::placeholder{color:rgba(255,255,255,.55)}
+.frame textarea:focus{box-shadow:inset 0 .4cqw 1.2cqw rgba(60,50,35,.2),0 0 0 .5cqw rgba(220,199,170,.55)}
+.btn-pill{
+  position:absolute;top:63cqw;left:0;right:0;margin-inline:auto;width:30cqw;height:12cqw;border-radius:99px;
+  background:#f4f0ea;border:.5cqw solid #e6d3bb;font-size:3.2cqw;font-weight:800;color:var(--brown-d);
+  box-shadow:0 1cqw 2.4cqw rgba(110,90,65,.18);transition:transform .25s var(--ease);
+}
+.btn-pill:active{transform:scale(.95)}
+.btn-pill[disabled]{opacity:.65;pointer-events:none}
+
+/* Countdown */
+.cd-title{font-size:3.4cqw;font-weight:500;color:var(--brown-l)}
+.countdown{display:flex;justify-content:center;gap:5.2cqw;direction:ltr}
+.cd{display:flex;flex-direction:column;align-items:center}
+.cd b{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:11.5cqw;line-height:.95;color:#8f7764;font-variant-numeric:lining-nums tabular-nums}
+.cd span{font-family:'Aref Ruqaa',serif;font-size:3.1cqw;line-height:1.2;color:#8f7764}
+
+/* Audio guest book */
+.audio-box{
+  display:flex;align-items:center;justify-content:center;gap:5cqw;margin-inline:auto;
+  width:70cqw;height:26cqw;border:1px solid var(--gold-line);border-radius:.6cqw;transition:background .3s;
+}
+.audio-box:active{background:rgba(255,255,255,.25)}
+.audio-box .a-txt{text-align:right}
+.audio-box .a-name{display:block;font-size:3.9cqw;font-weight:800;color:var(--brown)}
+.audio-box .a-sub{display:block;font-size:2.8cqw;font-weight:500;color:var(--brown-d);margin-top:1.4cqw}
+.audio-box .mic{width:6.2cqw;height:auto}
+.audio-box.rec{background:rgba(255,255,255,.3)}
+.audio-box.rec .mic{animation:micPulse 1.1s ease-in-out infinite}
+.audio-box.rec .a-sub{color:#b0473a}
+@keyframes micPulse{50%{transform:scale(1.18)}}
+
+/* Ending — زي الأصل: العربية تحت على الشمال مقصوصة، والأسماء على اليمين */
+.ending{position:relative;height:78cqw}
+.end-car{position:absolute;left:-3cqw;top:0;width:60cqw;height:auto;filter:drop-shadow(0 2cqw 2.2cqw rgba(95,75,50,.25))}
+.end-mark{position:absolute;right:6cqw;bottom:15cqw;width:30cqw;text-align:center}
+.end-names{font-family:'Aref Ruqaa',serif;font-weight:700;font-size:6.6cqw;line-height:1.3;white-space:nowrap}
+.end-names span{display:inline-block;padding:0 1cqw}
+.end-date{font-family:'Aref Ruqaa',serif;font-weight:700;font-size:2.9cqw;color:#a58d79;margin-top:1cqw;white-space:nowrap}
+.end-date .ln{display:inline-block;width:7cqw;height:.22cqw;background:currentColor;border-radius:9px;vertical-align:middle;margin:0 .8cqw;opacity:.75}
+.brand{position:absolute;right:6cqw;bottom:5cqw;font-family:'Jost',sans-serif;font-size:2.7cqw;font-weight:500;color:#8d8073;direction:ltr}
+
+/* =========================================================
+   4) SCROLL REVEAL
+   ========================================================= */
+.rv{opacity:0;filter:blur(1.2cqw);translate:0 5cqw;
+  transition:opacity 1.3s var(--ease),filter 1.3s var(--ease),translate 1.3s var(--ease),scale 1.3s var(--ease);
+  transition-delay:var(--d,0s)}
+.rv.zoom{translate:0 0;scale:.9}
+.rv.fade{translate:0 0}
+.rv.in{opacity:1;filter:blur(0);translate:0 0;scale:1}
+
+/* Scroll hint */
+.scroll-hint{
+  position:fixed;z-index:30;bottom:0;left:0;right:0;margin-inline:auto;width:var(--app-w);
+  padding:56px 0 calc(16px + env(safe-area-inset-bottom));
+  background:linear-gradient(to top,rgba(238,238,236,.99) 0%,rgba(238,238,236,.98) 62%,rgba(238,238,236,0) 100%);
+  display:flex;flex-direction:column;align-items:center;gap:3px;color:#9a8a7b;pointer-events:none;
+  opacity:0;transform:translateY(10px);transition:opacity .8s var(--ease),transform .8s var(--ease);
+}
+.scroll-hint.show{opacity:1;transform:none}
+.scroll-hint b{font-size:12.5px;font-weight:700}
+.scroll-hint small{font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase}
+.scroll-hint svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.6;animation:nudge 1.8s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateY(5px)}}
+
+/* =========================================================
+   5) INTRO (الصفحة الأولى — الغلاف)
+   ========================================================= */
+.intro{
+  position:fixed;inset:0;z-index:100;width:var(--app-w);margin-inline:auto;overflow:hidden;
+  background:#e9e8e4;container-type:size;transition:opacity 1s var(--ease),visibility 1s;
+}
+.intro.gone{opacity:0;visibility:hidden;pointer-events:none}
+/* stage = سلوك object-fit:cover بنسبة 9:16 — كل العناصر تفضل في مكانها على أي شاشة */
+.stage{
+  position:absolute;left:50%;top:50%;
+  width:max(100cqw,100cqh*9/16);height:max(100cqh,100cqw*16/9);
+  transform:translate(-50%,-50%);container-type:inline-size;
+}
+.stage .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.dim{position:absolute;inset:0;background:rgba(25,18,12,.14);transition:opacity .8s var(--ease)}
+.intro.playing .dim{opacity:0}
+
+/* العربية — بدون خلفية، مقصوصة من فوق زي الأصل */
+.c-car{
+  position:absolute;left:0;right:0;margin-inline:auto;top:-5cqw;width:56cqw;height:auto;
+  filter:drop-shadow(0 2cqw 2.2cqw rgba(95,75,50,.28));
+}
+/* عند الضغط: العربية تنزل وتعدّي الشاشة زي فيديو الأصل */
+.intro.playing .c-car{animation:drive 6.4s cubic-bezier(.55,.05,.45,1) forwards}
+@keyframes drive{to{transform:translateY(210%)}}
+.c-names{position:absolute;left:0;right:0;top:95cqw;display:flex;flex-direction:column;align-items:center;font-family:'Amiri',serif;font-weight:700;font-size:11.5cqw;line-height:1.15;white-space:nowrap}
+.c-names .row{display:inline-flex;align-items:baseline;gap:2cqw;padding:0 2cqw}
+.c-names .ttl{font-family:'Tajawal',sans-serif;font-weight:700;font-size:.42em;color:#a58d79}
+.c-names .amp{font-family:'Great Vibes',cursive;font-weight:400;font-size:.85em;line-height:1.25;margin:0 0 -3.4cqw;padding:0 3cqw}
+.c-date{position:absolute;left:0;right:0;text-align:center;top:135cqw;font-family:'Aref Ruqaa',serif;font-weight:700;font-size:4.6cqw;color:#a58d79}
+.c-date .ln{display:inline-block;width:15cqw;height:.28cqw;background:currentColor;border-radius:9px;vertical-align:middle;margin:0 1.2cqw;opacity:.75}
+.c-names,.c-date,.c-brand{transition:opacity .9s var(--ease),filter .9s var(--ease),transform .9s var(--ease)}
+.intro.playing .c-names,.intro.playing .c-date,.intro.playing .c-brand{opacity:0;filter:blur(1.5cqw);transform:translateY(3cqw)}
+.c-brand{position:absolute;left:0;right:0;text-align:center;top:171.5cqw;font-family:'Jost',sans-serif;font-size:2.5cqw;font-weight:500;color:#9a8b7d;direction:ltr}
+
+.open-btn{
+  position:absolute;left:50%;top:89.7%;width:30.4cqw;height:9.4cqw;transform:translate(-50%,-50%);
+  border:.28cqw solid rgba(166,139,112,.85);border-radius:99px;color:#a68b70;font-size:3.4cqw;font-weight:800;
+  background:rgba(255,255,255,.06);animation:breathe 2.8s ease-in-out infinite;transition:opacity .5s,transform .5s;
+}
+.open-btn:hover{background:rgba(255,255,255,.14)}
+.intro.playing .open-btn{opacity:0;transform:translate(-50%,-50%) scale(.92);pointer-events:none;animation:none}
+@keyframes breathe{50%{box-shadow:0 0 4cqw rgba(255,255,255,.4)}}
+
+/* =========================================================
+   7) SHEET + TOAST
+   ========================================================= */
+.sheet-back{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.55);opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s;backdrop-filter:blur(2px)}
+.sheet-back.show{opacity:1;visibility:visible}
+.sheet{
+  position:fixed;z-index:201;left:0;right:0;bottom:0;margin-inline:auto;width:var(--app-w);
+  background:#1b1b1d;border-radius:22px 22px 0 0;padding:22px 20px calc(22px + env(safe-area-inset-bottom));
+  color:#ddd;text-align:center;transform:translateY(105%);transition:transform .45s var(--ease);
+}
+.sheet.show{transform:translateY(0)}
+.sheet .s-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+.sheet .s-title{color:#f3cf6b;font-weight:800;font-size:19px}
+.sheet .s-x{font-size:26px;line-height:1;color:#bbb;padding:0 4px}
+.sheet .s-heart{font-size:42px;margin-bottom:14px;animation:beat 1.4s ease-in-out infinite}
+@keyframes beat{15%{transform:scale(1.15)}30%{transform:scale(1)}45%{transform:scale(1.1)}60%{transform:scale(1)}}
+.sheet .s-ok{color:#6fe3b3;font-weight:800;font-size:21px;margin-bottom:14px}
+.sheet .s-msg{color:#a9a9ad;font-size:15px;line-height:1.75;margin-bottom:22px}
+.sheet .s-btn{width:100%;height:50px;border-radius:14px;background:#232326;border:1px solid #3a3a3e;color:#eee;font-weight:700;font-size:16px}
+.toast{position:fixed;z-index:300;left:50%;bottom:28px;transform:translate(-50%,30px);opacity:0;background:rgba(20,20,22,.92);color:#fff;padding:12px 18px;border-radius:14px;font-size:14px;max-width:88vw;text-align:center;transition:opacity .35s,transform .35s var(--ease);pointer-events:none}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media (prefers-reduced-motion:reduce){
+  .rv,.hero .h{transition:opacity .6s !important;filter:none;translate:0 0;scale:1;clip-path:none !important}
+  .open-btn,.s-heart,.scroll-hint svg{animation:none !important}
+}
+</style>
+</head>
+<body class="locked">
+
+<!-- ================= الصفحة الأولى : الغلاف ================= -->
+<div class="intro" id="intro">
+  <div class="stage">
+    <img class="bg" src="assets/cover-bg.jpg" alt="">
+    <img class="c-car" src="assets/couple-car.webp" alt="رمزي و ريم">
+    <div class="dim"></div>
+    <h1 class="c-names" aria-label="د. رمزي و م. ريم">
+      <span class="row"><span class="ttl">د.</span><span class="deboss">رمزي</span></span>
+      <span class="amp deboss light">&amp;</span>
+      <span class="row"><span class="ttl">م.</span><span class="deboss">ريم</span></span>
+    </h1>
+    <p class="c-date">١٣ نوفمبر<span class="ln"></span>٢٠٢٦</p>
+    <button class="open-btn" id="openBtn">افتح الدعوة</button>
+    <p class="c-brand" data-brand></p>
+  </div>
+</div>
+
+<audio id="music" src="assets/music.mp3" loop preload="auto"></audio>
+
+<div class="app" id="app">
+
+  <main id="invite">
+    <section class="page">
+
+      <!-- ================= الصفحة الثانية : The Wedding Of ================= -->
+      <div class="hero" id="hero">
+        <img class="hero-bg" src="assets/hero.jpg" alt="">
+        <p class="h h-of"   style="--t:45.6;--d:.1s">The Wedding Of</p>
+        <p class="h h-name write" style="--t:52;--d:.35s"><span class="deboss">Ramzi</span></p>
+        <p class="h h-amp"  style="--t:78.5;--d:1.3s"><span class="deboss light">&amp;</span></p>
+        <p class="h h-name write" style="--t:96;--d:1.6s"><span class="deboss">Reem</span></p>
+        <p class="h h-save" style="--t:124.6;--d:2.5s">Save The Date</p>
+        <p class="h h-date" style="--t:130.4;--d:2.7s">13.NOV.2026</p>
+      </div>
+
+      <div class="flow">
+
+        <!-- ================= الصفحة الثالثة : نص الدعوة ================= -->
+        <div class="sec">
+          <img class="deco rv fade" src="assets/flowers.webp" alt="" style="--t:150;--w:46;right:-17cqw;transform:rotate(-28deg)">
+          <img class="deco rv fade" src="assets/flowers.webp" alt="" style="--t:268;--w:40;left:-16cqw;transform:rotate(30deg)">
+
+          <p class="basmala rv">﷽</p>
+          <p class="ayah rv mt" style="--mt:3"><span class="br">﴿</span> وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِّقَوْمٍ <span style="white-space:nowrap">يَتَفَكَّرُونَ <span class="br">﴾</span></span></p>
+
+          <p class="txt rv mt" style="--mt:7">إلى من لهم معزّةٌ خاصة في قلوبنا،<br>إلى أهلنا وأقاربنا وأصدقائنا وأحبتنا،<br>لأن فرحتنا لا تكتمل إلا بوجودكم،<br>ولأن مشاركتكم لنا أجمل لحظات العمر<br>تزيدها بهجةً وسرورًا،</p>
+
+          <p class="txt b rv mt kashida" style="--mt:6;font-size:4.1cqw;color:var(--brown)">يتشـــرّف</p>
+          <p class="parents rv mt" style="--mt:2">الدكتور عزمي أبو خليل وحرمه<br>والسيد صخر درويش وحرمه</p>
+          <p class="txt rv mt" style="--mt:3">بدعوتكم لحضور حفل زفاف نجليهما</p>
+
+          <div class="ar-names rv zoom mt" style="--mt:5" aria-label="الدكتور رمزي والمهندسة ريم">
+            <div class="who"><span class="ttl">الدكتور</span><span class="nm deboss">رمزي</span></div>
+            <span class="amp deboss light">&amp;</span>
+            <div class="who"><span class="ttl">المهندسة</span><span class="nm deboss">ريم</span></div>
+          </div>
+
+          <p class="txt rv mt" style="--mt:7">وذلك بمشيئة الله تعالى<br>في تمام الساعة الثامنة مساءً<br><b style="font-weight:800">من يوم الجمعة الموافق 13 نوفمبر 2026</b></p>
+
+          <p class="rv mt" style="--mt:5"><a class="venue" data-map-link href="#" target="_blank" rel="noopener">فندق ريجنسي بالاس – عمّان، الأردن</a></p>
+
+          <p class="txt rv mt" style="--mt:7">حضوركم شرفٌ لنا، وفرحتنا لا تكتمل إلا بكم.</p>
+          <p class="txt rv mt" style="--mt:1;color:var(--brown)">دامت دياركم عامرةً بالأفراح والمسرّات.</p>
+
+          <div class="rsvp rv mt" style="--mt:7" id="rsvp">
+            <h4>للاعتذار عن الحضور:</h4>
+          </div>
+
+          <p class="kids rv mt kashida" style="--mt:8">جنّـــة الأطفـــال منازلهـــم</p>
+        </div>
+
+        <!-- ================= الصفحة الرابعة : Save the date ================= -->
+        <div class="sec mt" style="--mt:26">
+          <img class="deco rv" src="assets/flowers.webp" alt="" style="--t:6;--w:17;left:9cqw;transform:rotate(-12deg);z-index:2">
+          <img class="deco rv fade" src="assets/flowers.webp" alt="" style="--t:78;--w:40;left:-15cqw;transform:rotate(32deg)">
+          <img class="deco rv fade" src="assets/flowers.webp" alt="" style="--t:120;--w:34;right:-13cqw;transform:rotate(-34deg) scaleX(-1)">
+
+          <img class="img-c rv zoom" src="assets/save-the-date.webp" alt="Save the Date" style="--w:81">
+          <p class="serif-date rv mt" style="--mt:10">13 .11.2026</p>
+          <div class="car-lane mt" style="--mt:3"><img class="car" id="car" src="assets/car.webp" alt=""></div>
+        </div>
+
+        <!-- Location -->
+        <div class="sec mt" style="--mt:12">
+          <p class="hall-ar rv kashida">قاعـة العلالـي</p>
+          <p class="hall-en rv mt" style="--mt:1;--d:.1s">Al Allali Hall</p>
+          <a class="map rv mt" style="--mt:5" data-map-link href="#" target="_blank" rel="noopener" aria-label="فتح الموقع على الخريطة">
+            <iframe id="mapFrame" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="map"></iframe>
+          </a>
+          <p class="txt sm rv mt" style="--mt:1.5;color:var(--brown-l)">اضغط على الخريطة للذهاب للموقع</p>
+        </div>
+
+        <!-- The details -->
+        <div class="sec mt" style="--mt:16">
+          <img class="deco rv fade" src="assets/flower-vine.webp" alt="" style="--t:-3;--w:118;left:-6cqw">
+          <img class="img-c rv" src="assets/details-title.webp" alt="The Details" style="--w:55">
+          <div id="details" class="mt" style="--mt:10"></div>
+        </div>
+
+        <!-- Guest book -->
+        <div class="sec mt" style="--mt:24">
+          <img class="deco rv fade" src="assets/branch.webp" alt="" style="--t:-4;--w:100;left:0">
+          <img class="deco rv fade" src="assets/flowers.webp" alt="" style="--t:95;--w:40;left:-17cqw;transform:rotate(24deg)">
+          <img class="deco rv fade" src="assets/flowers.webp" alt="" style="--t:139;--w:40;right:-17cqw;transform:rotate(-24deg) scaleX(-1)">
+
+          <h2 class="gb-title rv mt" style="--mt:66">Guest Book</h2>
+          <p class="gb-sub rv mt" style="--mt:1.5">تهنئــــــة للعروسيـــــــن</p>
+          <form class="frame rv mt" id="wishForm" style="--mt:3" autocomplete="off">
+            <span class="lab">اسم الضيف</span>
+            <strong class="who" data-guest>—</strong>
+            <textarea id="wishText" maxlength="400" placeholder="اكتب التهنئة هنا"></textarea>
+            <button class="btn-pill" type="submit" id="wishSend">إرسال التهنئة</button>
+          </form>
+        </div>
+
+        <!-- Countdown -->
+        <div class="sec mt" style="--mt:26">
+          <p class="cd-title rv kashida">الوقـــت المتبقـــي علـى الحفـــل</p>
+          <div class="countdown rv mt" style="--mt:3">
+            <div class="cd"><b data-cd="d">00</b><span>يوم</span></div>
+            <div class="cd"><b data-cd="h">00</b><span>ساعة</span></div>
+            <div class="cd"><b data-cd="m">00</b><span>دقيقة</span></div>
+            <div class="cd"><b data-cd="s">00</b><span>ثانية</span></div>
+          </div>
+        </div>
+
+        <!-- Audio guest book -->
+        <div class="sec mt" style="--mt:14">
+          <img class="deco rv fade" src="assets/flowers.webp" alt="" style="--t:80;--w:36;left:-18cqw;transform:rotate(30deg)">
+          <img class="deco rv fade" src="assets/flowers.webp" alt="" style="--t:150;--w:36;right:-17cqw;transform:rotate(-30deg) scaleX(-1)">
+          <img class="img-c rv zoom" src="assets/flowers.webp" alt="" style="--w:40">
+          <img class="img-c rv mt" src="assets/audio-guestbook.webp" alt="Audio Guest Book" style="--w:66;--mt:22">
+          <button class="audio-box rv mt" id="audioBox" type="button" style="--mt:12">
+            <img class="mic" src="assets/mic.webp" alt="">
+            <span class="a-txt">
+              <span class="a-name" data-guest>—</span>
+              <span class="a-sub" id="audioSub">اضغط هنا لإرسال تهنئة صوتية</span>
+            </span>
+          </button>
+        </div>
+
+        <!-- Closing -->
+        <div class="sec mt" style="--mt:30">
+          <img class="img-c rv" src="assets/welcome.webp" alt="وبحضوركم يتم لنا الفرح والسرور" style="--w:58">
+          <div class="ending mt" style="--mt:20">
+            <img class="end-car rv" src="assets/couple-car.webp" alt="رمزي و ريم">
+            <div class="end-mark rv zoom" style="--d:.3s">
+              <p class="end-names"><span class="deboss">رمزي و ريم</span></p>
+              <p class="end-date">١٣ نوفمبر<span class="ln"></span>٢٠٢٦</p>
+            </div>
+            <p class="brand" data-brand></p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="scroll-hint" id="scrollHint" aria-hidden="true">
+  <b>انزل للأسفل</b>
+  <small>Scroll down</small>
+  <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+
+<div class="sheet-back" id="sheetBack"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true">
+  <div class="s-head"><span class="s-title">شاركنا تهنئتك</span><button class="s-x" data-close aria-label="إغلاق">×</button></div>
+  <div class="s-heart">🤍</div>
+  <div class="s-ok">تم إرسال تهنئتك 🤍</div>
+  <p class="s-msg">شكراً لمشاركتك – وصلت تهنئتك للعروسين.</p>
+  <button class="s-btn" data-close>تم</button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   CONFIG — كل البيانات القابلة للتعديل هنا
+   ========================================================= */
+const CONFIG = {
+  // معرّف الدعوة في قاعدة البيانات (حروف إنجليزي صغيرة وأرقام و - فقط)
+  eventId: 'ramzi-reem',
+
+  // رابط الـ API — اتركه '' لو الموقع والـ API على نفس دومين Vercel
+  apiBase: '',
+
+  // اسم الضيف الافتراضي — ويمكن تخصيصه من الرابط:  ?name=أم أسامة
+  defaultGuest: 'ضيفنا الكريم',
+
+  // موعد الحفل (توقيت الأردن +03:00)
+  eventDate: '2026-11-13T20:00:00+03:00',
+
+  // الموقع
+  mapQuery: 'Regency Palace Hotel, Q. Aliaa St., Amman, Jordan',
+  mapUrl:   'https://maps.app.goo.gl/qvhhN66pPJ2htZHY8?g_st=iw',
+
+  // أرقام الاعتذار عن الحضور
+  rsvp: [
+    { family: 'آل أبو خليل', phone: '+972 598 818 931' },
+    { family: 'آل درويش',    phone: '+962 798 886 463' },
+  ],
+
+  // فقرات الحفل — الأيقونات المتاحة: car, dress, plate, cake, camera
+  details: [
+    { icon: 'car', label: 'الاستقبال', time: '8:00 PM' },
+    // { icon: 'dress',  label: 'دخلة العروس', time: '9:00 PM' },
+    // { icon: 'plate',  label: 'البوفيه',     time: '10:00 PM' },
+    // { icon: 'cake',   label: 'Cake Show',   time: '11:00 PM' },
+    // { icon: 'camera', label: 'التصوير',     time: '11:30 PM' },
+  ],
+
+  // التوقيع أسفل الغلاف ونهاية الدعوة (اتركه '' لإخفائه)
+  brand: '@izemak_events',
+
+  // مدة التسجيل الصوتي القصوى بالثواني
+  maxVoiceSeconds: 60,
+};
+
+const ICONS = {
+  car:    { src: 'assets/icon-car.webp',    w: 20 },
+  dress:  { src: 'assets/icon-dress.webp',  w: 20 },
+  plate:  { src: 'assets/icon-plate.webp',  w: 20 },
+  cake:   { src: 'assets/icon-cake.webp',   w: 17 },
+  camera: { src: 'assets/icon-camera.webp', w: 18 },
+};
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+const $  = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+function toast(msg, ms = 2600) {
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => t.classList.remove('show'), ms);
+}
+function escapeHTML(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+}
+
+/* ---------- Visitor id (لحساب الزوار الفريدين) ---------- */
+const VID = (() => {
+  const make = () => (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2, 12));
+  try {
+    let v = localStorage.getItem('inv-vid');
+    if (!v || !/^[a-zA-Z0-9-]{8,64}$/.test(v)) { v = make(); localStorage.setItem('inv-vid', v); }
+    return v;
+  } catch { return make(); }
+})();
+
+/* ---------- API ---------- */
+async function api(path, data, { keepalive = false } = {}) {
+  const r = await fetch(CONFIG.apiBase + path, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ event: CONFIG.eventId, vid: VID, ...data }),
+    keepalive,
+  });
+  if (!r.ok) {
+    const err = new Error('API ' + r.status);
+    err.status = r.status;
+    throw err;
+  }
+  return r.json();
+}
+function track(type) {
+  if (location.protocol === 'file:') return;
+  api('/api/track', { type, guest: GUEST_FROM_URL, referrer: document.referrer }, { keepalive: true }).catch(() => {});
+}
+function sendError(err) {
+  if (err?.status === 429) toast('أرسلت تهاني كثيرة، حاول بعد قليل');
+  else if (err?.status === 413) toast('التسجيل طويل جداً');
+  else toast('تعذر الإرسال، تأكد من الاتصال وحاول مرة أخرى');
+}
+
+/* ---------- Fill content from CONFIG ---------- */
+const params = new URLSearchParams(location.search);
+const GUEST_FROM_URL = (params.get('name') || params.get('guest') || '').trim().slice(0, 40);
+const GUEST = GUEST_FROM_URL || CONFIG.defaultGuest;
+$$('[data-guest]').forEach(el => el.textContent = GUEST);
+$$('[data-brand]').forEach(el => el.textContent = CONFIG.brand);
+
+$('#mapFrame').src = 'https://maps.google.com/maps?q=' + encodeURIComponent(CONFIG.mapQuery) + '&z=15&output=embed';
+$$('[data-map-link]').forEach(a => a.href = CONFIG.mapUrl);
+
+$('#rsvp').insertAdjacentHTML('beforeend', CONFIG.rsvp.map(r => {
+  const digits = r.phone.replace(/[^\d+]/g, '');
+  return `<p class="rsvp-row">${escapeHTML(r.family)}: <a class="num" href="tel:${digits}">${escapeHTML(r.phone)}</a></p>`;
+}).join(''));
+
+$('#details').innerHTML = CONFIG.details.map((d, i) => {
+  const ic = ICONS[d.icon] || ICONS.car;
+  return `<div class="d-item rv mt" style="--mt:${i ? 16 : 0}">
+    <img src="${ic.src}" alt="" style="width:${ic.w}cqw">
+    <p class="lbl">${escapeHTML(d.label)}</p>
+    <p class="time">${escapeHTML(d.time)}</p>
+  </div>`;
+}).join('');
+
+track('view');
+
+/* =========================================================
+   INTRO : الغلاف → السيارة تتحرك → الدعوة
+   ========================================================= */
+const intro = $('#intro'), music = $('#music'), app = $('#app'), hero = $('#hero'), hint = $('#scrollHint');
+let introDone = false;
+
+function finishIntro() {
+  if (introDone) return;
+  introDone = true;
+  window.scrollTo(0, 0);
+  document.body.classList.remove('locked');
+  app.classList.add('ready');
+  intro.classList.add('gone');
+  setTimeout(() => intro.remove(), 1100);
+  setTimeout(() => hero.classList.add('go'), 250);
+  setTimeout(() => { if (window.scrollY < 40) hint.classList.add('show'); }, 3200);
+  requestAnimationFrame(onScroll);
+}
+
+$('#openBtn').addEventListener('click', () => {
+  intro.classList.add('playing');
+  track('open');
+  music.volume = 0;
+  music.play().then(() => fadeVolume(music, .85, 1800)).catch(() => {});
+  setTimeout(finishIntro, 5800);
+});
+
+function fadeVolume(a, to, ms) {
+  const from = a.volume, start = performance.now();
+  (function step(now) {
+    const k = Math.min(1, (now - start) / ms);
+    a.volume = from + (to - from) * k;
+    if (k < 1) requestAnimationFrame(step);
+  })(start);
+}
+document.addEventListener('visibilitychange', () => {
+  if (!introDone) return;
+  if (document.hidden) music.pause(); else music.play().catch(() => {});
+});
+
+/* =========================================================
+   SCROLL REVEAL
+   ========================================================= */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+}, { rootMargin: '0px 0px -12% 0px', threshold: 0.01 });
+$$('.rv').forEach(el => io.observe(el));
+
+/* =========================================================
+   SCROLL : moving car + scroll hint
+   ========================================================= */
+const car = $('#car');
+let ticking = false;
+
+function onScroll() {
+  ticking = false;
+  const r = car.getBoundingClientRect();
+  const f = (r.top + r.height / 2) / window.innerHeight;
+  const x = Math.max(-26, Math.min(62, 9.6 + (1 - f) * 49));
+  car.style.setProperty('--x', x.toFixed(2));
+  if (window.scrollY > 40) hint.classList.remove('show');
+}
+window.addEventListener('scroll', () => {
+  if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
+}, { passive: true });
+window.addEventListener('resize', () => requestAnimationFrame(onScroll));
+
+/* =========================================================
+   COUNTDOWN
+   ========================================================= */
+const target = new Date(CONFIG.eventDate).getTime();
+const cdEls = Object.fromEntries($$('[data-cd]').map(el => [el.dataset.cd, el]));
+function tick() {
+  let diff = Math.max(0, target - Date.now());
+  const d = Math.floor(diff / 864e5); diff -= d * 864e5;
+  const h = Math.floor(diff / 36e5);  diff -= h * 36e5;
+  const m = Math.floor(diff / 6e4);   diff -= m * 6e4;
+  const s = Math.floor(diff / 1e3);
+  const pad = n => String(n).padStart(2, '0');
+  cdEls.d.textContent = pad(d); cdEls.h.textContent = pad(h);
+  cdEls.m.textContent = pad(m); cdEls.s.textContent = pad(s);
+}
+tick(); setInterval(tick, 1000);
+
+/* =========================================================
+   SUCCESS SHEET
+   ========================================================= */
+const sheet = $('#sheet'), sheetBack = $('#sheetBack');
+function openSheet()  { sheet.classList.add('show'); sheetBack.classList.add('show'); }
+function closeSheet() { sheet.classList.remove('show'); sheetBack.classList.remove('show'); }
+sheetBack.addEventListener('click', closeSheet);
+$$('[data-close]').forEach(b => b.addEventListener('click', closeSheet));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
+
+/* =========================================================
+   TEXT WISH  → POST /api/wishes
+   ========================================================= */
+const wishBtn = $('#wishSend');
+$('#wishForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const ta = $('#wishText');
+  const text = ta.value.trim();
+  if (!text) { ta.focus(); toast('من فضلك اكتب التهنئة أولاً'); return; }
+  wishBtn.disabled = true;
+  wishBtn.textContent = 'جاري الإرسال…';
+  try {
+    await api('/api/wishes', { name: GUEST, text });
+    ta.value = '';
+    ta.blur();
+    openSheet();
+  } catch (err) {
+    sendError(err);
+  } finally {
+    wishBtn.disabled = false;
+    wishBtn.textContent = 'إرسال التهنئة';
+  }
+});
+
+/* =========================================================
+   VOICE WISH (MediaRecorder) → POST /api/wishes
+   يحتاج https (على Vercel تلقائياً)
+   ========================================================= */
+const audioBox = $('#audioBox'), audioSub = $('#audioSub');
+const SUB_IDLE = audioSub.textContent;
+let rec = null, chunks = [], recTimer = null, recStart = 0, sending = false;
+
+audioBox.addEventListener('click', async () => {
+  if (sending) return;
+  if (rec && rec.state === 'recording') { rec.stop(); return; }
+  if (!navigator.mediaDevices?.getUserMedia || !window.MediaRecorder) {
+    toast('التسجيل الصوتي غير مدعوم في هذا المتصفح'); return;
+  }
+  let stream;
+  try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); }
+  catch { toast('يرجى السماح باستخدام المايكروفون'); return; }
+
+  chunks = [];
+  const mime = ['audio/webm;codecs=opus', 'audio/mp4', 'audio/webm'].find(t => MediaRecorder.isTypeSupported?.(t)) || '';
+  rec = new MediaRecorder(stream, mime ? { mimeType: mime, audioBitsPerSecond: 32000 } : undefined);
+  rec.ondataavailable = ev => ev.data.size && chunks.push(ev.data);
+  rec.onstop = () => {
+    stream.getTracks().forEach(t => t.stop());
+    clearInterval(recTimer);
+    audioBox.classList.remove('rec');
+    music.volume = .85;
+    const duration = (Date.now() - recStart) / 1000;
+    if (duration < 1) { audioSub.textContent = SUB_IDLE; toast('التسجيل قصير جداً'); return; }
+    const blob = new Blob(chunks, { type: rec.mimeType || 'audio/webm' });
+    const fr = new FileReader();
+    fr.onload = async () => {
+      sending = true;
+      audioSub.textContent = 'جاري إرسال التسجيل…';
+      try {
+        await api('/api/wishes', { name: GUEST, audio: fr.result, duration });
+        openSheet();
+      } catch (err) {
+        sendError(err);
+      } finally {
+        sending = false;
+        audioSub.textContent = SUB_IDLE;
+      }
+    };
+    fr.readAsDataURL(blob);
+  };
+  rec.start();
+  recStart = Date.now();
+  music.volume = 0;
+  audioBox.classList.add('rec');
+  const upd = () => {
+    const s = Math.floor((Date.now() - recStart) / 1000);
+    audioSub.textContent = `جاري التسجيل ${s}s — اضغط للإيقاف والإرسال`;
+    if (s >= CONFIG.maxVoiceSeconds && rec.state === 'recording') rec.stop();
+  };
+  upd(); recTimer = setInterval(upd, 250);
+});
+</script>
+</body>
+</html>
