@@ -309,10 +309,17 @@ a{color:inherit;text-decoration:none}
   position:absolute;z-index:3;left:0;right:0;margin-inline:auto;top:-4cqw;width:38cqw;height:auto;
   filter:drop-shadow(0 2cqw 2.2cqw rgba(95,75,50,.28));
 }
-/* مونوجرام ر ر — العربية بتعدّي من فوقه */
+/* --y = خط مرور العربية (بيتحدّث مع كل فريم من JS)
+   فوق الخط: الكلام الجديد بيظهر من ورا العربية — تحت الخط: «ر ر» لسه موجود، والعربية بتمسحه وهي معدّية */
+.stage{--y:-60cqw}
 .c-mono{position:absolute;left:0;right:0;margin-inline:auto;top:70cqw;width:46cqw;height:auto;
-  transition:opacity 1.4s var(--ease) 5.4s,filter 1.4s var(--ease) 5.4s}
-.intro.playing .c-mono{opacity:0;filter:blur(1.2cqw)}
+  /* الماسك بيتحسب من أول الصورة (70cqw) */
+  -webkit-mask-image:linear-gradient(to bottom,transparent calc(var(--y) - 72cqw),#000 calc(var(--y) - 64cqw));
+          mask-image:linear-gradient(to bottom,transparent calc(var(--y) - 72cqw),#000 calc(var(--y) - 64cqw))}
+.c-hero{position:absolute;inset:0;z-index:2;pointer-events:none;
+  -webkit-mask-image:linear-gradient(to bottom,#000 calc(var(--y) - 9cqw),transparent var(--y));
+          mask-image:linear-gradient(to bottom,#000 calc(var(--y) - 9cqw),transparent var(--y))}
+.hero.instant .h{transition:none !important}
 /* عند الضغط: العربية تنزل وتعدّي الشاشة زي فيديو الأصل */
 .intro.playing .c-car{animation:drive 12.8s cubic-bezier(.55,.05,.45,1) forwards}
 @keyframes drive{to{transform:translateY(300%)}}
@@ -361,6 +368,14 @@ a{color:inherit;text-decoration:none}
   <div class="stage">
     <img class="bg" src="assets/cover-bg.jpg" alt="">
     <img class="c-mono" src="assets/monogram-rr.webp" alt="">
+    <div class="c-hero" aria-hidden="true">
+      <p class="h h-of"   style="--t:45.6">The Wedding Of</p>
+      <p class="h h-name" style="--t:52"><span class="deboss">Ramzi</span></p>
+      <p class="h h-amp"  style="--t:78.5"><span class="deboss light">&amp;</span></p>
+      <p class="h h-name" style="--t:96"><span class="deboss">Reem</span></p>
+      <p class="h h-save" style="--t:124.6">Save The Date</p>
+      <p class="h h-date" style="--t:130.4">13.NOV.2026</p>
+    </div>
     <div class="dim"></div>
     <img class="c-car" src="assets/couple-car.webp" alt="رمزي و ريم">
     <button class="open-btn" id="openBtn">افتح الدعوة</button>
@@ -709,13 +724,28 @@ function finishIntro() {
   app.classList.add('ready');
   intro.classList.add('gone');
   setTimeout(() => intro.remove(), 1100);
-  setTimeout(() => hero.classList.add('go'), 250);
+  // الكلام ظهر خلاص من ورا العربية — يفضل ثابت في الدعوة من غير ما يتعاد
+  if (revealed) hero.classList.add('instant', 'go');
+  else setTimeout(() => hero.classList.add('go'), 250);
   setTimeout(() => { if (window.scrollY < 40) hint.classList.add('show'); }, 3200);
   requestAnimationFrame(onScroll);
 }
 
+let revealed = false;
+function followCar() {
+  const stage = $('.stage'), carEl = $('.c-car');
+  if (!stage || introDone) return;
+  const s = stage.getBoundingClientRect(), c = carEl.getBoundingClientRect();
+  // الخط عند نص العربية تقريباً: الكلام يطلع من تحتها والـ «ر ر» يختفي تحتها
+  const y = c.top - s.top + c.height * 0.45;
+  stage.style.setProperty('--y', y.toFixed(1) + 'px');
+  if (y > s.height * 0.78) revealed = true;
+  requestAnimationFrame(followCar);
+}
+
 $('#openBtn').addEventListener('click', () => {
   intro.classList.add('playing');
+  requestAnimationFrame(followCar);
   track('open');
   music.volume = 0;
   music.play().then(() => fadeVolume(music, .85, 1800)).catch(() => {});
