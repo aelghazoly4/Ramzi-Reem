@@ -171,16 +171,49 @@ a{color:inherit;text-decoration:none}
 .d-item .lbl{font-size:3.4cqw;font-weight:700;color:var(--brown-d);line-height:1.3}
 .d-item .time{font-size:3.5cqw;font-weight:800;color:var(--brown-d);direction:ltr;margin-top:.6cqw;letter-spacing:.02em}
 
+/* RSVP — تأكيد الحضور */
+.rsvp-card{position:relative;margin-inline:auto;width:76cqw;border:1px solid var(--gold-line);border-radius:.6cqw;
+  padding:9cqw 6cqw 8cqw;text-align:center;overflow:hidden;transition:height .6s var(--ease)}
+.rsvp-card::before,.rsvp-card::after{content:"";position:absolute;width:6cqw;height:6cqw;border:1px solid var(--gold-line);pointer-events:none}
+.rsvp-card::before{top:1.6cqw;right:1.6cqw;border-left:0;border-bottom:0}
+.rsvp-card::after{bottom:1.6cqw;left:1.6cqw;border-right:0;border-top:0}
+.rsvp-card .lab{display:block;text-align:right;font-size:3.2cqw;font-weight:500;color:var(--brown-d);padding-right:4.5cqw}
+.rsvp-card .who-in.guest-name{position:static;display:block;width:100%;margin-top:1.4cqw}
+.rsvp-q{font-family:'Amiri',serif;font-size:4.6cqw;font-weight:700;color:var(--brown);margin-top:8cqw;line-height:1.5}
+.rsvp-sub{font-size:2.9cqw;color:var(--brown-l);margin-top:1cqw}
+.choices{display:flex;gap:3cqw;justify-content:center;margin-top:6cqw}
+.choice{flex:1;max-width:31cqw;height:12.5cqw;border-radius:99px;display:inline-flex;align-items:center;justify-content:center;gap:1.6cqw;
+  font-size:3.2cqw;font-weight:800;transition:transform .25s var(--ease),box-shadow .3s,background .3s,color .3s,opacity .3s}
+.choice svg{width:3.6cqw;height:3.6cqw;stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.choice.yes{background:linear-gradient(180deg,#b09479,#8f735d);color:#fff;box-shadow:0 1.4cqw 3cqw rgba(110,85,60,.28),inset 0 .3cqw 0 rgba(255,255,255,.25)}
+.choice.no{background:#f4f0ea;color:var(--brown-d);border:.4cqw solid #e6d3bb;box-shadow:0 1cqw 2.4cqw rgba(110,90,65,.14)}
+.choice:active{transform:scale(.95)}
+.rsvp-card.busy .choice{opacity:.55;pointer-events:none}
+.rsvp-ask,.rsvp-done{transition:opacity .45s var(--ease),transform .45s var(--ease)}
+.rsvp-done{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6cqw;opacity:0;transform:translateY(3cqw);pointer-events:none}
+.rsvp-card.done .rsvp-ask{opacity:0;transform:translateY(-3cqw);pointer-events:none}
+.rsvp-card.done .rsvp-done{opacity:1;transform:none;pointer-events:auto}
+.seal{width:17cqw;height:17cqw}
+.seal circle{fill:none;stroke:var(--gold-line);stroke-width:1.5}
+.seal path{fill:none;stroke:var(--brown);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:60;stroke-dashoffset:60}
+.seal .ring{stroke:var(--brown);stroke-dasharray:160;stroke-dashoffset:160;transform:rotate(-90deg);transform-origin:center}
+.rsvp-card.done .seal .ring{animation:draw 1s .15s var(--ease) forwards}
+.rsvp-card.done .seal path{animation:draw .6s .9s var(--ease) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.done-t{font-family:'Amiri',serif;font-size:5cqw;font-weight:700;color:var(--brown);margin-top:4cqw;line-height:1.4}
+.done-s{font-size:3.1cqw;color:var(--brown-d);margin-top:1.6cqw;line-height:1.8}
+.change{margin-top:5cqw;font-size:2.9cqw;font-weight:700;color:var(--brown-l);text-decoration:underline;text-underline-offset:1cqw}
+
 /* Guest book */
 .gb-title{font-family:'Great Vibes',cursive;font-size:13.5cqw;line-height:1;color:var(--brown);direction:ltr;font-weight:400;
   text-shadow:0 .25cqw .25cqw rgba(255,255,255,.7),0 -.15cqw .2cqw rgba(90,70,50,.18)}
 .gb-sub{font-size:3.3cqw;font-weight:700;color:var(--brown-d)}
 .frame{position:relative;margin-inline:auto;width:70cqw;height:81cqw;border:1px solid var(--gold-line);border-radius:.6cqw;text-align:right}
 .frame .lab{position:absolute;top:12cqw;right:10.5cqw;font-size:3.2cqw;font-weight:500;color:var(--brown-d)}
-.frame .who-in{position:absolute;top:17cqw;right:5.5cqw;left:5.5cqw;height:9.5cqw;background:transparent;border:0;border-bottom:1px solid var(--gold-line);border-radius:0;outline:none;
+.frame .who-in,.rsvp-card .who-in{position:absolute;top:17cqw;right:5.5cqw;left:5.5cqw;height:9.5cqw;background:transparent;border:0;border-bottom:1px solid var(--gold-line);border-radius:0;outline:none;
   text-align:right;padding:0 5cqw;font:800 4.2cqw/1 'Tajawal',sans-serif;color:var(--brown);transition:border-color .3s}
-.frame .who-in::placeholder{color:var(--brown-l);font-weight:500;font-size:3.4cqw}
-.frame .who-in:focus{border-bottom-color:var(--brown)}
+.frame .who-in::placeholder,.rsvp-card .who-in::placeholder{color:var(--brown-l);font-weight:500;font-size:3.4cqw}
+.frame .who-in:focus,.rsvp-card .who-in:focus{border-bottom-color:var(--brown)}
 .frame textarea{
   position:absolute;top:30cqw;left:5.5cqw;right:5.5cqw;height:27cqw;
   background:var(--field);border:0;border-radius:3cqw;resize:none;outline:none;
@@ -278,10 +311,10 @@ a{color:inherit;text-decoration:none}
 }
 /* مونوجرام ر ر — العربية بتعدّي من فوقه */
 .c-mono{position:absolute;left:0;right:0;margin-inline:auto;top:70cqw;width:46cqw;height:auto;
-  transition:opacity .9s var(--ease) 2.7s,filter .9s var(--ease) 2.7s}
+  transition:opacity 1.4s var(--ease) 5.4s,filter 1.4s var(--ease) 5.4s}
 .intro.playing .c-mono{opacity:0;filter:blur(1.2cqw)}
 /* عند الضغط: العربية تنزل وتعدّي الشاشة زي فيديو الأصل */
-.intro.playing .c-car{animation:drive 6.4s cubic-bezier(.55,.05,.45,1) forwards}
+.intro.playing .c-car{animation:drive 12.8s cubic-bezier(.55,.05,.45,1) forwards}
 @keyframes drive{to{transform:translateY(300%)}}
 
 .open-btn{
@@ -416,6 +449,32 @@ a{color:inherit;text-decoration:none}
           <div id="details" class="mt" style="--mt:10"></div>
         </div>
 
+        <!-- RSVP — تأكيد الحضور -->
+        <div class="sec mt" style="--mt:24">
+          <img class="deco rv fade" src="assets/flowers.webp" alt="" style="--t:30;--w:36;left:-17cqw;transform:rotate(26deg)">
+          <img class="deco rv fade" src="assets/flowers.webp" alt="" style="--t:88;--w:34;right:-16cqw;transform:rotate(-26deg) scaleX(-1)">
+          <h2 class="gb-title rv">Kindly Reply</h2>
+          <p class="gb-sub rv mt" style="--mt:1.5">تأكيـــــد الحضـــــور</p>
+          <div class="rsvp-card rv mt" id="rsvpCard" style="--mt:5">
+            <div class="rsvp-ask">
+              <label class="lab" for="rsvpName">اسم الضيف</label>
+              <input class="who-in guest-name" id="rsvpName" type="text" maxlength="40" placeholder="اكتب اسمك هنا" autocomplete="name">
+              <p class="rsvp-q">هل ستشاركوننا فرحتنا؟</p>
+              <p class="rsvp-sub">يسعدنا تأكيد حضوركم قبل موعد الحفل</p>
+              <div class="choices">
+                <button class="choice yes" type="button" data-att="1"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>سأحضر بإذن الله</button>
+                <button class="choice no" type="button" data-att="0"><svg viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17"/></svg>أعتذر عن الحضور</button>
+              </div>
+            </div>
+            <div class="rsvp-done" aria-live="polite">
+              <svg class="seal" viewBox="0 0 60 60"><circle cx="30" cy="30" r="25"/><circle class="ring" cx="30" cy="30" r="25"/><path id="sealMark" d="M19 31l7.5 7.5L42 23"/></svg>
+              <p class="done-t" id="doneT"></p>
+              <p class="done-s" id="doneS"></p>
+              <button class="change" type="button" id="rsvpChange">تعديل الرد</button>
+            </div>
+          </div>
+        </div>
+
         <!-- Guest book -->
         <div class="sec mt" style="--mt:24">
           <img class="deco rv fade" src="assets/branch.webp" alt="" style="--t:-4;--w:100;left:0">
@@ -426,7 +485,7 @@ a{color:inherit;text-decoration:none}
           <p class="gb-sub rv mt" style="--mt:1.5">تهنئــــــة للعروسيـــــــن</p>
           <form class="frame rv mt" id="wishForm" style="--mt:3" autocomplete="off">
             <label class="lab" for="wishName">اسم الضيف</label>
-            <input class="who-in" id="wishName" type="text" maxlength="40" placeholder="اكتب اسمك هنا" autocomplete="name">
+            <input class="who-in guest-name" id="wishName" type="text" maxlength="40" placeholder="اكتب اسمك هنا" autocomplete="name">
             <textarea id="wishText" maxlength="400" placeholder="اكتب التهنئة هنا"></textarea>
             <button class="btn-pill" type="submit" id="wishSend">إرسال التهنئة</button>
           </form>
@@ -597,17 +656,23 @@ function sendError(err) {
 const params = new URLSearchParams(location.search);
 const GUEST_FROM_URL = (params.get('name') || params.get('guest') || '').trim().slice(0, 40);
 const GUEST = GUEST_FROM_URL || CONFIG.defaultGuest;
-/* اسم الضيف في سجل التهاني — من الرابط أو آخر اسم كتبه */
+/* اسم الضيف (تأكيد الحضور + سجل التهاني) — من الرابط أو آخر اسم كتبه، والخانتين متزامنين */
+const nameIns = $$('.guest-name');
 const nameIn = $('#wishName');
-try { nameIn.value = GUEST_FROM_URL || localStorage.getItem('inv-guest-name') || ''; } catch { nameIn.value = GUEST_FROM_URL; }
+let savedName = '';
+try { savedName = localStorage.getItem('inv-guest-name') || ''; } catch {}
+nameIns.forEach(i => i.value = GUEST_FROM_URL || savedName);
 const guestName = () => nameIn.value.trim().slice(0, 40);
 const syncGuest = () => $$('[data-guest]').forEach(el => el.textContent = guestName() || GUEST);
-nameIn.addEventListener('input', syncGuest);
+nameIns.forEach(i => i.addEventListener('input', () => {
+  nameIns.forEach(o => { if (o !== i) o.value = i.value; });
+  syncGuest();
+}));
 syncGuest();
 function rememberName(n) { try { localStorage.setItem('inv-guest-name', n); } catch {} }
-function needName() {
-  nameIn.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  setTimeout(() => nameIn.focus({ preventScroll: true }), 450);
+function needName(el = nameIn) {
+  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  setTimeout(() => el.focus({ preventScroll: true }), 450);
   toast('من فضلك اكتب اسمك أولاً');
 }
 
@@ -654,7 +719,7 @@ $('#openBtn').addEventListener('click', () => {
   track('open');
   music.volume = 0;
   music.play().then(() => fadeVolume(music, .85, 1800)).catch(() => {});
-  setTimeout(finishIntro, 5800);
+  setTimeout(finishIntro, 11600);
 });
 
 function fadeVolume(a, to, ms) {
@@ -725,6 +790,46 @@ function closeSheet() { sheet.classList.remove('show'); sheetBack.classList.remo
 sheetBack.addEventListener('click', closeSheet);
 $$('[data-close]').forEach(b => b.addEventListener('click', closeSheet));
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
+
+/* =========================================================
+   RSVP  → POST /api/rsvp
+   ========================================================= */
+const rsvpCard = $('#rsvpCard');
+const RSVP_TEXT = {
+  true:  ['شكراً لتأكيد حضورك', 'بانتظاركم لنشارككم فرحتنا 🤍'],
+  false: ['نتفهّم اعتذارك', 'شكراً لإبلاغنا، وستبقون في قلوبنا يوم الفرح 🤍'],
+};
+function showRsvpDone(attending) {
+  const [t, sub] = RSVP_TEXT[attending];
+  $('#doneT').textContent = t;
+  $('#doneS').textContent = sub;
+  $('#sealMark').setAttribute('d', attending ? 'M19 31l7.5 7.5L42 23' : 'M22 22l16 16M38 22L22 38');
+  rsvpCard.classList.remove('done');
+  void rsvpCard.offsetWidth;                // restart the draw animation
+  rsvpCard.classList.add('done');
+}
+try {
+  const prev = JSON.parse(localStorage.getItem('inv-rsvp') || 'null');
+  if (prev && typeof prev.attending === 'boolean') showRsvpDone(prev.attending);
+} catch {}
+
+$$('.choice').forEach(btn => btn.addEventListener('click', async () => {
+  const name = guestName();
+  if (!name) { needName($('#rsvpName')); return; }
+  const attending = btn.dataset.att === '1';
+  rememberName(name);
+  rsvpCard.classList.add('busy');
+  try {
+    await api('/api/rsvp', { name, attending });
+    try { localStorage.setItem('inv-rsvp', JSON.stringify({ attending, name })); } catch {}
+    showRsvpDone(attending);
+  } catch (err) {
+    sendError(err);
+  } finally {
+    rsvpCard.classList.remove('busy');
+  }
+}));
+$('#rsvpChange').addEventListener('click', () => rsvpCard.classList.remove('done'));
 
 /* =========================================================
    TEXT WISH  → POST /api/wishes

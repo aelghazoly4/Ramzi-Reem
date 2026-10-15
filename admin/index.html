@@ -162,6 +162,22 @@ tr:last-child td{border-bottom:0}
 .link-out span{flex:1}
 .ok{color:var(--good);font-weight:700}
 
+/* RSVP */
+.rsvp-top{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.rsvp-stat{background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:16px}
+.rsvp-stat .lab{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--ink-2)}
+.rsvp-stat .lab i{width:10px;height:10px;border-radius:3px;background:var(--bar)}
+.rsvp-stat.no .lab i{background:var(--ink-3)}
+.rsvp-stat .val{font-size:30px;font-weight:800;margin-top:8px;line-height:1}
+.rsvp-stat .pct{font-size:12.5px;color:var(--ink-3);margin-top:6px}
+.split{display:flex;height:10px;border-radius:99px;overflow:hidden;background:var(--surface-2);margin:14px 0 4px;gap:2px}
+.split span{display:block;height:100%}
+.split .y{background:var(--bar);border-radius:99px 0 0 99px}
+.split .n{background:var(--ink-3);opacity:.55;border-radius:0 99px 99px 0}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;border-radius:99px;padding:4px 10px}
+.pill.yes{color:var(--good);background:color-mix(in srgb,var(--good) 12%,transparent)}
+.pill.no{color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line)}
+
 /* Activity */
 .feed{display:grid;gap:2px}
 .feed-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px}
@@ -239,6 +255,27 @@ tr:last-child td{border-bottom:0}
 
   <!-- KPIs -->
   <section class="kpis" id="kpis"></section>
+
+  <!-- RSVP -->
+  <section class="card" style="margin-bottom:14px">
+    <div class="card-h">
+      <div><h2>تأكيد الحضور</h2><div class="sub">ردود الضيوف من قسم «Kindly Reply» في الدعوة</div></div>
+      <div class="tools">
+        <div class="seg" id="rsvpFilter"><button class="on" data-r="all">الكل</button><button data-r="yes">سيحضرون</button><button data-r="no">اعتذروا</button></div>
+        <button class="btn btn-ghost" id="rsvpCsv" style="height:36px">
+          <svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>تصدير
+        </button>
+      </div>
+    </div>
+    <div class="card-b">
+      <div class="rsvp-top">
+        <div class="rsvp-stat"><div class="lab"><i></i>سيحضرون</div><div class="val num" id="rsvpYes">0</div><div class="pct" id="rsvpYesPct"></div></div>
+        <div class="rsvp-stat no"><div class="lab"><i></i>اعتذروا</div><div class="val num" id="rsvpNo">0</div><div class="pct" id="rsvpNoPct"></div></div>
+      </div>
+      <div class="split" id="rsvpSplit" role="img"></div>
+      <div class="tbl-scroll" id="rsvpTable" style="margin-top:10px"></div>
+    </div>
+  </section>
 
   <!-- Chart + breakdowns -->
   <section class="grid-2">
@@ -432,6 +469,7 @@ function renderStats(s) {
   renderBreakdown('#countries', s.countries.map(c => ({ name: `${flag(c.key)} ${country(c.key)}`, n: c.n })));
   renderGuests(s.guests);
   renderFeed(s.recent);
+  renderRsvp(s.rsvp || { attending: 0, declined: 0, list: [] });
 }
 
 function renderBreakdown(sel, rows) {
@@ -523,6 +561,43 @@ function renderGuests(list) {
   el.innerHTML = `<table><thead><tr><th>الضيف</th><th>الزيارات</th><th>فتح الدعوة</th><th>آخر زيارة</th></tr></thead><tbody>${
     list.map(g => `<tr><td><b>${esc(g.name)}</b></td><td class="num">${g.views}</td><td>${g.opens ? '<span class="ok">✓ نعم</span>' : '<span class="muted">—</span>'}</td><td class="muted">${ago(g.lastSeen)}</td></tr>`).join('')}</tbody></table>`;
 }
+
+let RSVP = { attending: 0, declined: 0, list: [] }, rsvpK = 'all';
+function renderRsvp(r) {
+  RSVP = r;
+  const total = r.attending + r.declined;
+  const pct = n => total ? Math.round((n / total) * 100) + '% من الردود' : 'لا توجد ردود بعد';
+  $('#rsvpYes').textContent = nf.format(r.attending);
+  $('#rsvpNo').textContent = nf.format(r.declined);
+  $('#rsvpYesPct').textContent = pct(r.attending);
+  $('#rsvpNoPct').textContent = pct(r.declined);
+  const split = $('#rsvpSplit');
+  split.setAttribute('aria-label', `سيحضرون ${r.attending}، اعتذروا ${r.declined}`);
+  split.innerHTML = total
+    ? `${r.attending ? `<span class="y" style="flex:${r.attending}" title="سيحضرون: ${r.attending}"></span>` : ''}${r.declined ? `<span class="n" style="flex:${r.declined}" title="اعتذروا: ${r.declined}"></span>` : ''}`
+    : '';
+  const rows = r.list.filter(x => rsvpK === 'all' || (rsvpK === 'yes') === x.attending);
+  $('#rsvpTable').innerHTML = rows.length
+    ? `<table><thead><tr><th>الضيف</th><th>الرد</th><th>آخر تحديث</th></tr></thead><tbody>${
+        rows.map(x => `<tr><td><b>${esc(x.name)}</b></td><td>${x.attending ? '<span class="pill yes">✓ سيحضر</span>' : '<span class="pill no">✕ اعتذر</span>'}</td><td class="muted">${ago(x.updatedAt)}</td></tr>`).join('')}</tbody></table>`
+    : `<p class="empty">${r.list.length ? 'لا توجد نتائج' : 'لم يرد أي ضيف بعد 🤍'}</p>`;
+}
+$('#rsvpFilter').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  rsvpK = b.dataset.r;
+  $$('#rsvpFilter button').forEach(x => x.classList.toggle('on', x === b));
+  renderRsvp(RSVP);
+});
+$('#rsvpCsv').addEventListener('click', () => {
+  const rows = [['الاسم', 'الرد', 'الدولة', 'الجهاز', 'آخر تحديث']]
+    .concat(RSVP.list.map(x => [x.name, x.attending ? 'سيحضر' : 'اعتذر', x.country || '', DEVICE[x.device] || '', dtf.format(new Date(x.updatedAt))]));
+  const csv = '\uFEFF' + rows.map(r => r.map(v => `"${String(v).replace(/"/g, '""')}"`).join(',')).join('\r\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+  a.download = `rsvp-${EVENT_ID}.csv`;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+});
 
 function renderFeed(list) {
   const el = $('#feed');

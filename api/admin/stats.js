@@ -84,7 +84,15 @@ export default handler(['GET'], async (req, res) => {
     { $group: { _id: null, text: { $sum: { $cond: [{ $eq: ['$kind', 'text'] }, 1, 0] } }, voice: { $sum: { $cond: [{ $eq: ['$kind', 'voice'] }, 1, 0] } } } },
   ]).toArray();
 
+  const rsvpList = await db.collection('rsvps')
+    .find({ event }, { projection: { _id: 0, name: 1, attending: 1, updatedAt: 1, country: 1, device: 1 } })
+    .sort({ updatedAt: -1 })
+    .limit(2000)
+    .toArray();
+  const attending = rsvpList.filter(r => r.attending).length;
+
   res.status(200).json({
+    rsvp: { attending, declined: rsvpList.length - attending, list: rsvpList },
     totals: {
       views: count('view'),
       visitors: agg.uniqueViews[0]?.n || 0,

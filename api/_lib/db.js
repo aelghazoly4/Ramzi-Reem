@@ -33,5 +33,9 @@ async function ensureIndexes(db) {
       { key: { event: 1, createdAt: -1 } },
       { key: { vid: 1, createdAt: -1 } },
     ]),
+    db.collection('rsvps').createIndexes([
+      { key: { event: 1, vid: 1 }, unique: true },
+      { key: { event: 1, updatedAt: -1 } },
+    ]),
   ]);
 }
